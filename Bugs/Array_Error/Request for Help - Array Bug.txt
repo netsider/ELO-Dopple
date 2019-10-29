@@ -1,0 +1,12 @@
+Can you look at my code here and help me with a PHP bug?  Sorry to bother you, but I don't have many people to ask about this stuff.
+
+Here is the file in my GH repo:
+https://github.com/netsider/learning/blob/master/ELO-FACEMASH/index_dopple.php
+
+Here is a .RTF doc I wrote explaining the bug, with screenshots of my code and of $_POST output:
+https://github.com/netsider/learning/blob/master/ELO-FACEMASH/Bugs%20and%20Things%20Learned/Array%20Error.rtf
+
+I also wrote a question on here, in case you wanna answer that way:
+https://www.quora.com/unanswered/Why-will-PHP-sometimes-put-a-single-string-into-an-array-with-each-array-item-being-one-letter-of-the-string-especially-in-POST-requests-submissions-In-POST-arrays-Ill-have-to-specify-an-array-item-value-just-to-get
+
+I know it's a lot to ask, but figured just asking can't hurt.
