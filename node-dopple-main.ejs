@@ -1,5 +1,6 @@
 
-<% if (Array.isArray(playerArray) && playerArray.length){
+<% if (Array.isArray(playerArray) && playerArray.length){ 
+	console.log("Array NOT empty!"); %>
 	<h2>The Two Chosen Players:</h2>
 	<div>
 		<% playerArray.forEach(function(player){ %>
@@ -7,7 +8,7 @@
 			<p><%=player.name %></p>
 		<%});%>
 	</div>
-}else{
+<% }else{
 		console.log("Array Empty!");
 };%>
 
