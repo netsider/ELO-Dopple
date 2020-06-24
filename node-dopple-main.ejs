@@ -1,19 +1,18 @@
 
+<% if (Array.isArray(playerArray) && playerArray.length){
+	<h2>The Two Chosen Players:</h2>
+	<div>
+		<% playerArray.forEach(function(player){ %>
+			<img style="height: 200px; width: 200px;" src="<%= player.image %>">
+			<p><%=player.name %></p>
+		<%});%>
+	</div>
+}else{
+		console.log("Array Empty!");
+};%>
 
-
-playerArray = [];
-
-<h2>The Two Chosen Players:</h2>
-<div>
-  <% playerArray.forEach(function(player){ %>
-    <img style="height: 200px; width: 200px;" src="<%= player.image %>">
-    <p><%=player.name %></p>
-  <%});%>
-</div>
-
-
-<form action="/playerchosen" method="POST">
-	<p>Player 1 Name: <input type="button" name = "playerOne" placeholder = "Player 1"></p>
-    <p>Player 2 Name: <input type="button" name = "playerOne" placeholder = "Player 2"></p>
-    <a href="/submit"><button>Submit</button></a>
+<form action="/node-dopple-main" method="POST">
+	//<img src="" name="playerImage"><img src="" name="playerImage">
+	<p>Player 1 Name: <input type="button" name = "playerName" value=""></p>
+    <p>Player 2 Name: <input type="button" name = "playerName" value=""></p>
 </form>
