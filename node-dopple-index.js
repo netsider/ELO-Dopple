@@ -1,3 +1,5 @@
+// Made by Russell Rounds
+
 const express  = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
@@ -6,8 +8,6 @@ const port = 3000;
 const app = express();
 
 console.log("Starting...");
-
-
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -28,7 +28,7 @@ app.get("/node-dopple-main", function(req, res){
 })
 
 app.post("/node-dopple-main", function(req, res){
-	console.log("/node-dopple-main (post) ..");
+	console.log("Serving /node-dopple-main (post) ..");
    let name = req.body.playerName;
    let image = req.body.playerImage;
    let winningPlayer = {name: name, image: image};
