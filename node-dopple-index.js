@@ -19,12 +19,12 @@ let playerArray = [];
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-    res.render("node-dopple-main", {playerArray: playerArray});
+    res.render("node-dopple-main", {playerArray: playerArray})
 })
 
 app.get("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main ...");
-    res.render("node-dopple-main", {playerArray: playerArray});
+    res.render("node-dopple-main", {playerArray: playerArray})
 })
 
 app.post("/node-dopple-main", function(req, res){
