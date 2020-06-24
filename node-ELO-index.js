@@ -36,11 +36,15 @@ app.post("/node-dopple-main", function(req, res){
 	console.log("name: " + name);
 	let winnerLoserArray = {loser: loser, winner: winner};
 	console.log("Pushing new player to array...");
-	//console.log("winnerLoserArray: " + winnerLoserArray);
-	Array.from(Object.keys(winnerLoserArray)).forEach(function(key){
-		console.log(key + ":" + winnerLoserArray[key]);
-	});
+	logArray(winnerLoserArray); // Print Array
 	playerArray.push(winnerLoserArray);
 	console.log("Redirecting...");
 	res.redirect("/node-dopple-main");
 });
+
+function logArray(theArray){
+	console.log("Logging Array...");
+	Array.from(Object.keys(theArray)).forEach(function(key){
+		console.log(key + ":" + theArray[key]);
+	});
+};
