@@ -34,7 +34,7 @@ app.post("/node-dopple-main", function(req, res){
 	let winner = name[1]; // Why is Node treating this as a string, accessing each character as one element?
 	let loser = name[3];
 	console.log("name: " + name);
-	let winnerLoserArray = {loser: loser, winner: winner};
+	let winnerLoserArray = {winner: winner, loser: loser};
 	console.log("Pushing new player to array...");
 	logArray(winnerLoserArray); // Print Array
 	playerArray.push(winnerLoserArray);
