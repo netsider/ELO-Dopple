@@ -34,7 +34,7 @@ app.get("/node-dopple-main", function(req, res){
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
 	let name = req.body.playerName;
-	let image = req.body.playerImage;
+	//let image = req.body.playerImage;
 	let winner = name[0];
 	let loser = name[2];
 	let winnerLoserArray = {winner: winner, loser: loser};
