@@ -42,6 +42,7 @@ app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
 	
 	let name = req.body.playerName;
+	//let image = req.body.playerImage;
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0];
 	let loser = unserialized[1];
@@ -66,13 +67,10 @@ app.post("/node-dopple-main", function(req, res){
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	console.log("Loser New Score: " + loserNewScore);
 	
-	//let image = req.body.playerImage;
 	
-	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
+	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
 	
 	console.log(winnerLoserArray);
-	
-	// logArray(winnerLoserArray); // Print Array
 	
 	playerArray.push(winnerLoserArray);
 	console.log("Redirecting to / ...");
@@ -82,7 +80,7 @@ app.post("/node-dopple-main", function(req, res){
 function ELO(A, B){
 	let C = B - A;
 	return 1 / (1 + Math.pow(10,(C/400)));
-}
+};
 
 function logArray(theArray){
 	console.log("Logging Array...");
