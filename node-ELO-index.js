@@ -24,14 +24,10 @@ app.get("/", function(req, res){
 	}
     res.render("node-dopple-main", {playerArray: playerArray})
 	
-	if(playerArray.length){
+	if(playerArray.length){ // Make sure array empty before user clicks
 		console.log("Resetting playerArray...");
 		playerArray = [];
-	}
-	if(!playerArray.length){
-		console.log("playerArray Empty!");
-	}
-	
+	}	
 })
 
 app.get("/node-dopple-main", function(req, res){
