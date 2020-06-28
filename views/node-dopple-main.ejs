@@ -28,12 +28,13 @@
 	playerOneIsWinnerArray = [];
 	playerOneIsWinnerArray[0] = playerOne;
 	playerOneIsWinnerArray[1] = playerTwo;
+	playerOneIsWinnerArray = JSON.stringify(playerOneIsWinnerArray);
 	
 	// Array passed if Player Two wins
 	playerTwoIsWinnerArray = [];
 	playerTwoIsWinnerArray[0] = playerTwo;
 	playerTwoIsWinnerArray[1] = playerOne;
-
+	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
 
 if (Array.isArray(playerArray) && playerArray.length){ 
 	console.log("Array NOT empty!");
