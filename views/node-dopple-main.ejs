@@ -4,17 +4,20 @@
 
 <% 
 	
-	// Program variables
+	// App Variables
 	let photoPath  = "/Dopples/Actress_Picture/";
 	let scorePath = "/Dopples/Actress_Score/";
 	let maxPlayers = 5;
 	
+	// App Functions
 	function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 	};
-
+	
+	///////////////
+	
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	let playerTwo = getRandomIntInclusive(1, maxPlayers);
 
@@ -38,16 +41,17 @@
 	playerTwoIsWinnerArray[1] = playerOne;
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
 
-if (Array.isArray(playerArray) && playerArray.length){ 
-	console.log("Array NOT empty!");
+	if (Array.isArray(playerArray) && playerArray.length){ 
+		console.log("Array NOT empty!");
 	
-	playerArray.forEach(function(player){ %>
+		playerArray.forEach(function(player){ %>
 			<p><%= player.winner %></p>
 	<%});
-}else{
+	}else{
 		console.log("Array Empty!"); %>
 		
-<% };%>
+	<%};
+%>
 
 	<img src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
 	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
