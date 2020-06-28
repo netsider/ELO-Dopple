@@ -45,6 +45,6 @@ app.post("/node-dopple-main", function(req, res){
 function logArray(theArray){
 	console.log("Logging Array...");
 	Array.from(Object.keys(theArray)).forEach(function(key){
-		console.log(key + ":" + theArray[key]);
+		console.log(key + ": " + theArray[key]);
 	});
 };
