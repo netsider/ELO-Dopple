@@ -21,8 +21,9 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 	if(playerArray.length){
 		console.log(playerArray);
-	};
+	}
     res.render("node-dopple-main", {playerArray: playerArray})
+	playerArray = [];
 })
 
 app.get("/node-dopple-main", function(req, res){
