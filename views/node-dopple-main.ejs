@@ -5,15 +5,23 @@
 	<div>
 		<% playerArray.forEach(function(player){ %>
 			<img style="height: 200px; width: 200px;" src="<%= player.image %>">
-			<p><%=player.name %></p>
+			<p><%= player.name %></p>
 		<%});%>
 	</div>
 <% }else{
 		console.log("Array Empty!");
 };%>
 
+<% 	
+	let playerOne = "1";
+	let playerTwo = "2";
+	currentPlayers = [];
+	currentPlayers[0] = playerOne;
+	currentPlayers[1] = playerTwo;	
+%>
+
 <form action="/node-dopple-main" method="POST">
 	<img src="1.jpg" name="playerImage" "1.jpg"><img src="2.jpg" name="playerImage" value="2.jpg">
-	<p>Player 1 Name: <input type="submit" name = "playerName" value="[2,1]" /></p>
-    <p>Player 2 Name: <input type="submit" name = "playerName" value="[1,2]" /></p>
-	</form>
+	<p>Player 1: <input type="submit" name="playerName" value="<%= currentPlayers %>" /></p>
+    <p>Player 2: <input type="submit" name="playerName" value="<%= currentPlayers %>" /></p>
+</form>
