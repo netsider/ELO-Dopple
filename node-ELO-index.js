@@ -33,10 +33,10 @@ app.get("/", function(req, res){
 	}	
 })
 
-app.get("/node-dopple-main", function(req, res){
-	console.log("Serving /node-dopple-main (get) ...");
-    res.render("node-dopple-main", {playerArray: playerArray})
-})
+// app.get("/node-dopple-main", function(req, res){
+	// console.log("Serving /node-dopple-main (get) ...");
+    // res.render("node-dopple-main", {playerArray: playerArray})
+// })
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
