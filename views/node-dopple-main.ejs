@@ -24,8 +24,8 @@
 		playerTwo = getRandomIntInclusive(1, 5);
 	}
 
-	let playerOneImage = playerOne + ".jpg";
-	let playerTwoImage = playerTwo + ".jpg";
+	let playerOneImage = photoPath + playerOne + ".jpg";
+	let playerTwoImage = photoPath + playerTwo + ".jpg";
 	
 	// Array passed if Player One wins
 	playerOneIsWinnerArray = [];
@@ -42,8 +42,9 @@
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		console.log("Array NOT empty!");
 	
-		playerArray.forEach(function(player){ %>
-			<p><%= player.winner %></p>
+		playerArray.forEach(function(currentArray){ %>
+			<p>Winner: <%= currentArray.winner %></p>
+			<p>Loser: <%= currentArray.loser %></p>
 	<%});
 	}else{
 		console.log("Array Empty!"); %>
