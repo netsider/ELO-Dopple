@@ -28,7 +28,7 @@ app.get("/", function(req, res){
 	res.render("node-dopple-main", {playerArray: playerArray})
 	
 	if(playerArray.length){ // Make sure array empty before user clicks
-		console.log("Resetting playerArray...");
+		//console.log("Resetting playerArray...");
 		playerArray = [];
 	}	
 })
@@ -52,27 +52,27 @@ app.post("/node-dopple-main", function(req, res){
 	let loserScoreFile = "Dopples/Actress_Score/" + loser + ".txt";
 	
 	let winnerOldScore = Number(fs.readFileSync(winnerScoreFile));
-	console.log("Winner Old Score:" + winnerOldScore);
+	//console.log("Winner Old Score:" + winnerOldScore);
 	let loserOldScore = Number(fs.readFileSync(loserScoreFile));
-	console.log("Loser Old Score:" + loserOldScore);
+	//console.log("Loser Old Score:" + loserOldScore);
 
 	let winnerELO = ELO(winnerOldScore, loserOldScore);
-	console.log("Winner ELO Rating: " + winnerELO);
+	//console.log("Winner ELO Rating: " + winnerELO);
 	let loserELO = ELO(loserOldScore, winnerOldScore);
-	console.log("Loser ELO Rating: " + loserELO);
+	//console.log("Loser ELO Rating: " + loserELO);
 	
 	let k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
-	console.log("Winner New Score: " + winnerNewScore);
+	//console.log("Winner New Score: " + winnerNewScore);
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
-	console.log("Loser New Score: " + loserNewScore);
+	//console.log("Loser New Score: " + loserNewScore);
 	
 	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
 	
 	console.log(winnerLoserArray);
 	
 	playerArray.push(winnerLoserArray);
-	console.log("Redirecting to / ...");
+	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
 
@@ -81,7 +81,7 @@ function ELO(A, B){
 };
 
 function logArray(theArray){
-	console.log("Logging Array...");
+	//console.log("Logging Array...");
 	Array.from(Object.keys(theArray)).forEach(function(key){
 		console.log(key + ": " + theArray[key]);
 	});
