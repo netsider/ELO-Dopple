@@ -7,6 +7,7 @@
 	// Program variables
 	let photoPath  = "/Dopples/Actress_Picture/";
 	let scorePath = "/Dopples/Actress_Score/";
+	let maxPlayers = 5;
 	
 	function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
@@ -14,11 +15,10 @@
 		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 	};
 
-	let playerOne = getRandomIntInclusive(1, 5);
-	let playerTwo = getRandomIntInclusive(1, 5);
+	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	let playerTwo = getRandomIntInclusive(1, maxPlayers);
 
-	
-	while (playerOne === playerTwo){ // Make sure players not the same
+	while(playerOne === playerTwo){ // Make sure players not the same
 		console.log("Players the same!");
 		playerTwo = getRandomIntInclusive(1, 5);
 	}
