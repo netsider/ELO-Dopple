@@ -16,12 +16,13 @@
 
 	let playerOne = getRandomIntInclusive(1, 5);
 	let playerTwo = getRandomIntInclusive(1, 5);
-	if (playerOne === playerTwo){
+
+	
+	while (playerOne === playerTwo){ // Make sure players not the same
 		console.log("Players the same!");
-		while (playerOne === playerTwo){
-			playerTwo = getRandomIntInclusive(1, 5);
-		}
+		playerTwo = getRandomIntInclusive(1, 5);
 	}
+
 	let playerOneImage = playerOne + ".jpg";
 	let playerTwoImage = playerTwo + ".jpg";
 	
