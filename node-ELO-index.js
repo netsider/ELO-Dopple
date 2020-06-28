@@ -34,11 +34,11 @@ app.get("/node-dopple-main", function(req, res){
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
 	let name = req.body.playerName;
-	//let image = req.body.playerImage;
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0];
 	let loser = unserialized[1];
 	let winnerLoserArray = {winner: winner, loser: loser};
+	//let image = req.body.playerImage;
 	playerArray.push(winnerLoserArray);
 	logArray(winnerLoserArray); // Print Array
 	console.log("Redirecting to / ...");
