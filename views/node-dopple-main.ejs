@@ -21,12 +21,12 @@
 	let playerOneImage = playerOne + ".jpg";
 	let playerTwoImage = playerTwo + ".jpg";
 	
-	// Array passed through if Player One wins
+	// Array passed if Player One wins
 	playerOneIsWinnerArray = [];
 	playerOneIsWinnerArray[0] = playerOne;
 	playerOneIsWinnerArray[1] = playerTwo;
 	
-	// Array passed through if Player Two wins
+	// Array passed if Player Two wins
 	playerTwoIsWinnerArray = [];
 	playerTwoIsWinnerArray[0] = playerTwo;
 	playerTwoIsWinnerArray[1] = playerOne;
@@ -36,13 +36,11 @@ if (Array.isArray(playerArray) && playerArray.length){
 	console.log("Array NOT empty!");
 	
 	playerArray.forEach(function(player){ %>
-			<p><%= player.name %></p>
+			<p><%= player.winner %></p>
 	<%});
 }else{
 		console.log("Array Empty!"); %>
 		
-	
-
 <% };%>
 
 	<img src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
