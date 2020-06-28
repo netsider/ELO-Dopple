@@ -23,7 +23,7 @@ app.get("/", function(req, res){
 })
 
 app.get("/node-dopple-main", function(req, res){
-	console.log("Serving /node-dopple-main ...");
+	console.log("Serving /node-dopple-main (get) ...");
     res.render("node-dopple-main", {playerArray: playerArray})
 })
 
@@ -31,15 +31,15 @@ app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
 	let name = req.body.playerName;
 	let image = req.body.playerImage;
-	let winner = name[1]; // Why is Node treating this as a string, accessing each character as one element?
-	let loser = name[3];
-	console.log("name: " + name);
+	let winner = name[0];
+	let loser = name[2];
 	let winnerLoserArray = {winner: winner, loser: loser};
-	console.log("Pushing new player to array...");
-	logArray(winnerLoserArray); // Print Array
+	console.log("name: " + name);
 	playerArray.push(winnerLoserArray);
-	console.log("Redirecting...");
-	res.redirect("/node-dopple-main");
+	logArray(winnerLoserArray); // Print Array
+	console.log("Redirecting to / ...");
+	//res.redirect("/node-dopple-main");
+	res.redirect("/");
 });
 
 function logArray(theArray){
