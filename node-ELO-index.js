@@ -19,6 +19,9 @@ let playerArray = [];
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
+	if(playerArray.length){
+		console.log(playerArray);
+	};
     res.render("node-dopple-main", {playerArray: playerArray})
 })
 
