@@ -67,7 +67,6 @@ app.post("/node-dopple-main", function(req, res){
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	console.log("Loser New Score: " + loserNewScore);
 	
-	
 	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
 	
 	console.log(winnerLoserArray);
@@ -78,8 +77,7 @@ app.post("/node-dopple-main", function(req, res){
 });
 
 function ELO(A, B){
-	let C = B - A;
-	return 1 / (1 + Math.pow(10,(C/400)));
+	return 1 / (1 + Math.pow(10,((B - A)/400)));
 };
 
 function logArray(theArray){
