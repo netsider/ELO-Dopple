@@ -23,7 +23,15 @@ app.get("/", function(req, res){
 		console.log(playerArray);
 	}
     res.render("node-dopple-main", {playerArray: playerArray})
-	playerArray = [];
+	
+	if(playerArray.length){
+		console.log("Resetting playerArray...");
+		playerArray = [];
+	}
+	if(!playerArray.length){
+		console.log("playerArray Empty!");
+	}
+	
 })
 
 app.get("/node-dopple-main", function(req, res){

@@ -17,9 +17,9 @@
 	};
 	
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
-	let playerTwo = getRandomIntInclusive(1, maxPlayers);
+	let playerTwo = playerOne + "D";
 
-	while(playerOne === playerTwo){ // Make sure players not the same
+	while(playerOne === playerTwo){ // Make sure players not the same (not needed for Dopplegangers, but keep anyway)
 		console.log("Players the same!");
 		playerTwo = getRandomIntInclusive(1, 5);
 	}
