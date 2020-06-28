@@ -1,27 +1,47 @@
 
-<% if (Array.isArray(playerArray) && playerArray.length){ 
-	console.log("Array NOT empty!"); %>
-	<h2>The Two Chosen Players:</h2>
-	<div>
-		<% playerArray.forEach(function(player){ %>
-			<img style="height: 200px; width: 200px;" src="<%= player.image %>">
-			<p><%= player.name %></p>
-		<%});%>
-	</div>
-<% }else{
-		console.log("Array Empty!");
-};%>
-
-<% 	
-	let playerOne = "1";
-	let playerTwo = "2";
-	currentPlayers = [];
-	currentPlayers[0] = playerOne;
-	currentPlayers[1] = playerTwo;	
-%>
-
 <form action="/node-dopple-main" method="POST">
-	<img src="1.jpg" name="playerImage" "1.jpg"><img src="2.jpg" name="playerImage" value="2.jpg">
-	<p>Player 1: <input type="submit" name="playerName" value="<%= currentPlayers %>" /></p>
-    <p>Player 2: <input type="submit" name="playerName" value="<%= currentPlayers %>" /></p>
+<h2>The Two Chosen Players:</h2>
+
+<% 
+	
+	function getRandomIntInclusive(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+	};
+
+	let playerOne = getRandomIntInclusive(1, 5);
+	let playerTwo = getRandomIntInclusive(1, 5);
+	while (playerOne === playerTwo){
+		let playerTwo = getRandomIntInclusive(1, 5);
+	};
+	let playerOneImage = playerOne + ".jpg";
+	let playerTwoImage = playerTwo + ".jpg";
+	
+	// Array passed through if Player One wins
+	playerOneIsWinnerArray = [];
+	playerOneIsWinnerArray[0] = playerOne;
+	playerOneIsWinnerArray[1] = playerTwo;
+	
+	// Array passed through if Player Two wins
+	playerTwoIsWinnerArray = [];
+	playerTwoIsWinnerArray[0] = playerTwo;
+	playerTwoIsWinnerArray[1] = playerOne;
+
+
+if (Array.isArray(playerArray) && playerArray.length){ 
+	console.log("Array NOT empty!");
+	playerArray.forEach(function(player){ %>
+			<p><%= player.name %></p>
+	<%});
+}else{
+		console.log("Array Empty!"); %>
+		
+	
+
+<% };%>
+
+	<img src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
+	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
+    <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
 </form>
