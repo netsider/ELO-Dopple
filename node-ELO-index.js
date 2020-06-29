@@ -29,10 +29,10 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 
 	if(playerArray.length){
-		console.log("Player Array: " + JSON.stringify(playerArray));
+		//console.log("Player Array: " + JSON.stringify(playerArray));
 	}
 	if(Array.isArray(newPlayers)){
-		console.log("Making New Player Array!");
+		//console.log("Making New Player Array!");
 		let playerOne = getRandomIntInclusive(1, maxPlayers);
 		let playerTwo = playerOne + "D";
 		let playerOneNamePath = namePath + playerOne + ".txt";
@@ -43,21 +43,25 @@ app.get("/", function(req, res){
 		let playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
 		let playerOneScore = Number(fs.readFileSync(playerOneScorePath));
 		let playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
-		console.log("Player One Score: " + playerOneScore);
-		console.log("Player Two Score: " + playerTwoScore);
+		//console.log("Player One Score: " + playerOneScore);
+		//console.log("Player Two Score: " + playerTwoScore);
+		let playerOneELO = Math.floor(ELO(playerOneScore, playerTwoScore) * 100);
+		let playerTwoELO = Math.floor(ELO(playerTwoScore, playerOneScore) * 100);
+		//console.log(playerOneELO);
+		//console.log(playerTwoELO);
+		
 		
 		newPlayers[0] = [];
 		newPlayers[1] = [];
-		
 		newPlayers[0][0] = playerOne;
 		newPlayers[0][1] = playerOneName;
 		newPlayers[0][2] = playerOneScore;
-		
+		newPlayers[0][3] = playerOneELO;
 		newPlayers[1][0] = playerTwo;
 		newPlayers[1][1] = playerTwoName;
 		newPlayers[1][2] = playerTwoScore;
-		
-		//console.log("New Players: " + newPlayers);
+		newPlayers[1][3] = playerTwoELO;
+
 		logArray(newPlayers);
 	}
     	
