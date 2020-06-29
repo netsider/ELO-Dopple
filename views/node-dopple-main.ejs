@@ -1,7 +1,8 @@
 <% 
-	
+	//const fs = require('fs');
 	// App Variables
 	let photoPath  = "Dopples/Actress_Picture/";
+	
 	let maxPlayers = 5;
 	let imgHeight = "200px";
 	let imgWidth = "150px";
@@ -24,6 +25,8 @@
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
 	
+	
+	
 	// Array passed if Player One wins
 	playerOneIsWinnerArray = [];
 	playerOneIsWinnerArray[0] = playerOne;
@@ -35,6 +38,8 @@
 	playerTwoIsWinnerArray[0] = playerTwo;
 	playerTwoIsWinnerArray[1] = playerOne;
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
+	
+	
 %>
 
 <h2>The Two Chosen Players:</h2>
@@ -45,6 +50,7 @@
 </form>
 
 <%
+	
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		console.log("Array NOT empty!");
 	
