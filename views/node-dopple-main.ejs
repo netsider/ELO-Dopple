@@ -5,11 +5,9 @@
 <% 
 	
 	// App Variables
-	let photoPath  = "/Dopples/Actress_Picture/";
-	let scorePath = "/Dopples/Actress_Score/";
+	let photoPath  = "Dopples/Actress_Picture/";
 	let maxPlayers = 5;
-	
-	// App Functions
+		
 	function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
@@ -50,9 +48,11 @@
 		console.log("Array Empty!"); %>
 		
 	<%};
+	let imgHeight = "200px";
+	let imgWidth = "150px";
 %>
 
-	<img src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
+	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
 	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
     <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
 </form>
