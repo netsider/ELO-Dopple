@@ -23,14 +23,13 @@
 	playerTwoIsWinnerArray[1] = playerOne;
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
 	
-	
 %>
-
-<h2>The Two Chosen Players:</h2>
+<center>
+<h2>Can you tell the difference between <u><%= playerOneName %></u> and <u><%= playerTwoName %></u>?</h2>
 <form action="/node-dopple-main" method="POST">
 	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
-	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
-    <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
+	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
+	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
 </form>
 
 <%
@@ -47,3 +46,4 @@
 		
 	<%};
 %>
+</center>
