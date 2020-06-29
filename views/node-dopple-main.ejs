@@ -13,9 +13,13 @@
 	let playerOne = newPlayers[0][0];
 	let playerOneName = newPlayers[0][1];
 	let playerOneScore = newPlayers[0][2];
+	let playerOneELO = newPlayers[0][3];
+	
 	let playerTwo = newPlayers[1][0];
 	let playerTwoName = newPlayers[1][1];
 	let playerTwoScore = newPlayers[0][2];
+	let playerTwoELO = newPlayers[1][3];
+	
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
 	
@@ -34,6 +38,8 @@
 %>
 <center>
 <h2>Can you tell the difference between <u><%= playerOneName %></u> and <u><%= playerTwoName %></u>?</h2>
+<p> There is a <%= playerOneELO %>% chance this is <%= playerOneName %>, and a <%= playerTwoELO %>% this is <%= playerTwoName %>, based upon previous user voting/input.</p>
+
 <form action="/node-dopple-main" method="POST">
 
 <%
