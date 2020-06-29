@@ -19,33 +19,35 @@ app.set("view engine", "ejs");
 app.listen(port);
 
 let playerArray = [];
+let newPlayers = [];
+let namePath = "Dopples/Actress_Name/";
+let maxPlayers = 5;
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	
-	let namePath = "Dopples/Actress_Name/";
-	let maxPlayers = 5;
-	
+
 	if(playerArray.length){
 		console.log("Player Array: " + JSON.stringify(playerArray));
-	}else{
-		console.log("Player Array Empty! Making New One");
+	}
+	if(Array.isArray(newPlayers)){
+		console.log("Making New Player Array!");
 		let playerOne = getRandomIntInclusive(1, maxPlayers);
 		let playerTwo = playerOne + "D";
 		let playerOneNamePath = namePath + playerOne + ".txt";
 		let playerTwoNamePath = namePath + playerTwo + ".txt";
 		let playerOneName = fs.readFileSync(playerOneNamePath).toString();
 		let playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
-		//console.log("Player One Name: " + playerOneName);
-		//console.log("Player Two Name: " + playerOneName);
-		let players = {playerOne: playerOne, playerTwo: playerTwo, playerOneName: playerOneName, playerTwoName: playerTwoName};
-		playerArray.push(players);
-		console.log("Player Array: " + JSON.stringify(playerArray));
+		newPlayers[0] = playerOne;
+		newPlayers[1] = playerOneName;
+		newPlayers[2] = playerTwo;
+		newPlayers[3] = playerTwoName;
+		console.log("New Players: " + newPlayers);
 	}
     	
-	res.render("node-dopple-main", {playerArray: playerArray})
+	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
 	if(playerArray.length){ // Make sure array empty before user clicks
+		//console.log("Player Array: " + JSON.stringify(playerArray));
 		//console.log("Resetting playerArray...");
 		playerArray = [];
 	}	
@@ -95,8 +97,6 @@ function getRandomIntInclusive(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 	};
 	
-	
-
 function ELO(A, B){
 	return 1 / (1 + Math.pow(10,((B - A)/400)));
 };
