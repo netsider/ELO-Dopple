@@ -23,10 +23,26 @@ let playerArray = [];
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
+	let namePath = "Dopples/Actress_Name/";
+	let maxPlayers = 5;
+	
 	if(playerArray.length){
-		console.log(playerArray);
+		console.log("Player Array: " + JSON.stringify(playerArray));
+	}else{
+		console.log("Player Array Empty! Making New One");
+		let playerOne = getRandomIntInclusive(1, maxPlayers);
+		let playerTwo = playerOne + "D";
+		let playerOneNamePath = namePath + playerOne + ".txt";
+		let playerTwoNamePath = namePath + playerTwo + ".txt";
+		let playerOneName = fs.readFileSync(playerOneNamePath).toString();
+		let playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
+		//console.log("Player One Name: " + playerOneName);
+		//console.log("Player Two Name: " + playerOneName);
+		let players = {playerOne: playerOne, playerTwo: playerTwo, playerOneName: playerOneName, playerTwoName: playerTwoName};
+		playerArray.push(players);
+		console.log("Player Array: " + JSON.stringify(playerArray));
 	}
-    
+    	
 	res.render("node-dopple-main", {playerArray: playerArray})
 	
 	if(playerArray.length){ // Make sure array empty before user clicks
@@ -58,7 +74,7 @@ app.post("/node-dopple-main", function(req, res){
 	let loserELO = ELO(loserOldScore, winnerOldScore);
 	//console.log("Loser ELO Rating: " + loserELO);
 	
-	let k = 32;
+	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	//console.log("Winner New Score: " + winnerNewScore);
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
@@ -72,6 +88,14 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
+
+function getRandomIntInclusive(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+	};
+	
+	
 
 function ELO(A, B){
 	return 1 / (1 + Math.pow(10,((B - A)/400)));
