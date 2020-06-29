@@ -45,10 +45,10 @@ app.get("/", function(req, res){
 		let playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
 		//console.log("Player One Score: " + playerOneScore);
 		//console.log("Player Two Score: " + playerTwoScore);
-		let playerOneELO = Math.floor(ELO(playerOneScore, playerTwoScore) * 100);
-		let playerTwoELO = Math.floor(ELO(playerTwoScore, playerOneScore) * 100);
-		//console.log(playerOneELO);
-		//console.log(playerTwoELO);
+		let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2);
+		let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2);
+		console.log(playerOneELO);
+		console.log(playerTwoELO);
 		
 		
 		newPlayers[0] = [];
