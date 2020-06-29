@@ -21,6 +21,8 @@ app.listen(port);
 let playerArray = [];
 let newPlayers = [];
 let namePath = "Dopples/Actress_Name/";
+let scorePath = "Dopples/Actress_Score/";
+
 let maxPlayers = 5;
 
 app.get("/", function(req, res){
@@ -35,13 +37,28 @@ app.get("/", function(req, res){
 		let playerTwo = playerOne + "D";
 		let playerOneNamePath = namePath + playerOne + ".txt";
 		let playerTwoNamePath = namePath + playerTwo + ".txt";
+		let playerOneScorePath = scorePath + playerOne + ".txt";
+		let playerTwoScorePath = scorePath + playerTwo + ".txt";
 		let playerOneName = fs.readFileSync(playerOneNamePath).toString();
 		let playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
-		newPlayers[0] = playerOne;
-		newPlayers[1] = playerOneName;
-		newPlayers[2] = playerTwo;
-		newPlayers[3] = playerTwoName;
-		console.log("New Players: " + newPlayers);
+		let playerOneScore = Number(fs.readFileSync(playerOneScorePath));
+		let playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
+		console.log("Player One Score: " + playerOneScore);
+		console.log("Player Two Score: " + playerTwoScore);
+		
+		newPlayers[0] = [];
+		newPlayers[1] = [];
+		
+		newPlayers[0][0] = playerOne;
+		newPlayers[0][1] = playerOneName;
+		newPlayers[0][2] = playerOneScore;
+		
+		newPlayers[1][0] = playerTwo;
+		newPlayers[1][1] = playerTwoName;
+		newPlayers[1][2] = playerTwoScore;
+		
+		//console.log("New Players: " + newPlayers);
+		logArray(newPlayers);
 	}
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
@@ -95,7 +112,7 @@ function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-	};
+};
 	
 function ELO(A, B){
 	return 1 / (1 + Math.pow(10,((B - A)/400)));
