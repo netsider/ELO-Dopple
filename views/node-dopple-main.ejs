@@ -38,7 +38,7 @@
 
 <%
 let rando = getRandomIntInclusive(1, 2);
-if(rando === 1){ // Randomize pictures/buttons to avoid revealing winner
+if(rando === 1){ // Randomize pictures
 %>
 	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
