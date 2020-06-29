@@ -1,7 +1,3 @@
-
-<form action="/node-dopple-main" method="POST">
-<h2>The Two Chosen Players:</h2>
-
 <% 
 	
 	// App Variables
@@ -37,6 +33,17 @@
 	playerTwoIsWinnerArray[1] = playerOne;
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
 
+	let imgHeight = "200px";
+	let imgWidth = "150px";
+%>
+
+<h2>The Two Chosen Players:</h2>
+<form action="/node-dopple-main" method="POST">
+	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
+	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
+    <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
+</form>
+<%
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		console.log("Array NOT empty!");
 	
@@ -48,11 +55,4 @@
 		console.log("Array Empty!"); %>
 		
 	<%};
-	let imgHeight = "200px";
-	let imgWidth = "150px";
 %>
-
-	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
-	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
-    <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
-</form>
