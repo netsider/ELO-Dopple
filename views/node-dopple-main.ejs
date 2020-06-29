@@ -3,7 +3,10 @@
 	// App Variables
 	let photoPath  = "Dopples/Actress_Picture/";
 	let maxPlayers = 5;
-		
+	let imgHeight = "200px";
+	let imgWidth = "150px";
+	////////////////
+	
 	function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
@@ -32,9 +35,6 @@
 	playerTwoIsWinnerArray[0] = playerTwo;
 	playerTwoIsWinnerArray[1] = playerOne;
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
-
-	let imgHeight = "200px";
-	let imgWidth = "150px";
 %>
 
 <h2>The Two Chosen Players:</h2>
@@ -43,6 +43,7 @@
 	<p>Player 1: <input type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>" /></p>
     <p>Player 2: <input type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>" /></p>
 </form>
+
 <%
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		console.log("Array NOT empty!");
