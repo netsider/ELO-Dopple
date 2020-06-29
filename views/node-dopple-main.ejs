@@ -1,31 +1,15 @@
 <% 
-	//const fs = require('fs');
-	// App Variables
 	let photoPath  = "Dopples/Actress_Picture/";
-	
 	let maxPlayers = 5;
 	let imgHeight = "200px";
 	let imgWidth = "150px";
-	////////////////
-	
-	function getRandomIntInclusive(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-	};
-	
-	let playerOne = getRandomIntInclusive(1, maxPlayers);
-	let playerTwo = playerOne + "D";
-
-	while(playerOne === playerTwo){ // Make sure players not the same (not needed for Dopplegangers, but keep anyway)
-		console.log("Players the same!");
-		playerTwo = getRandomIntInclusive(1, 5);
-	}
-
+				
+	let playerOne = newPlayers[0];
+	let playerTwo = newPlayers[2];
+	let playerOneName = newPlayers[1];
+	let playerTwoName = newPlayers[3];
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
-	
-	
 	
 	// Array passed if Player One wins
 	playerOneIsWinnerArray = [];
