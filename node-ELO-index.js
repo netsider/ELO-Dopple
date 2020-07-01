@@ -39,29 +39,31 @@ app.get("/", function(req, res){
 		let playerTwoNamePath = namePath + playerTwo + ".txt";
 		let playerOneScorePath = scorePath + playerOne + ".txt";
 		let playerTwoScorePath = scorePath + playerTwo + ".txt";
-		let playerOneName = "";
-		//let playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
 		
+		let playerOneName = "";
 		if(fs.existsSync(playerOneNamePath)){
 			//console.log("File Exists");
 			playerOneName = fs.readFileSync(playerOneNamePath).toString();
-		}else{
-			//console.log("File Not Exists");
-			playerOneName = "Empty";
 		}
 		
+		let playerTwoName = "";
 		if(fs.existsSync(playerTwoNamePath)){
 			//console.log("File Exists");
 			playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
-		}else{
-			//console.log("File Not Exists");
-			playerTwoName = "Empty";
 		}
 		
-
+		let playerOneScore = 0;
+		if(fs.existsSync(playerOneScorePath)){
+			//console.log("File Exists");
+			playerOneScore = Number(fs.readFileSync(playerOneScorePath));
+		}
 		
-		let playerOneScore = Number(fs.readFileSync(playerOneScorePath));
-		let playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
+		let playerTwoScore = 0;
+		if(fs.existsSync(playerTwoScorePath)){
+			//console.log("File Exists");
+			playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
+		}
+		
 		//console.log("Player One Score: " + playerOneScore);
 		//console.log("Player Two Score: " + playerTwoScore);
 		let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2);
