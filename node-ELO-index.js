@@ -95,8 +95,6 @@ app.post("/node-dopple-main", function(req, res){
 	
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
-	console.log("FUCK");
-	console.log(name);
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
 	let loser = unserialized[1].toString();
