@@ -122,6 +122,9 @@ app.post("/node-dopple-main", function(req, res){
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	//console.log("Loser New Score: " + loserNewScore);
 	
+	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
+	fs.writeFileSync(loserScoreFile, String(loserNewScore));
+	
 	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
 	
 	console.log(winnerLoserArray);
