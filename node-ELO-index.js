@@ -118,7 +118,7 @@ app.post("/node-dopple-main", function(req, res){
 	let loserNamePath = namePath + loser + ".txt";
 	let winnerName = fs.readFileSync(winnerNamePath).toString();
 	let loserName = fs.readFileSync(loserNamePath).toString();
-	console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
+	//console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
 	
 	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
