@@ -28,61 +28,53 @@ let maxPlayers = 5;
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 
-	if(playerArray.length){
-		//console.log("Player Array: " + JSON.stringify(playerArray));
+	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	let playerTwo = playerOne + "D";
+	let playerOneNamePath = namePath + playerOne + ".txt";
+	let playerTwoNamePath = namePath + playerTwo + ".txt";
+	let playerOneScorePath = scorePath + playerOne + ".txt";
+	let playerTwoScorePath = scorePath + playerTwo + ".txt";
+		
+	let playerOneName = "File Not Found";
+	if(fs.existsSync(playerOneNamePath)){
+		playerOneName = fs.readFileSync(playerOneNamePath).toString();
 	}
-	if(Array.isArray(newPlayers)){
-		//console.log("Making New Player Array!");
 		
-		let playerOne = getRandomIntInclusive(1, maxPlayers);
-		let playerTwo = playerOne + "D";
-		let playerOneNamePath = namePath + playerOne + ".txt";
-		let playerTwoNamePath = namePath + playerTwo + ".txt";
-		let playerOneScorePath = scorePath + playerOne + ".txt";
-		let playerTwoScorePath = scorePath + playerTwo + ".txt";
-		
-		let playerOneName = "File Not Found";
-		if(fs.existsSync(playerOneNamePath)){
-			playerOneName = fs.readFileSync(playerOneNamePath).toString();
-		}
-		
-		let playerTwoName = "File Not Found";
-		if(fs.existsSync(playerTwoNamePath)){
-			playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
-		}
-		
-		let playerOneScore = 0;
-		if(fs.existsSync(playerOneScorePath)){
-			playerOneScore = Number(fs.readFileSync(playerOneScorePath));
-		}
-		
-		let playerTwoScore = 0;
-		if(fs.existsSync(playerTwoScorePath)){
-			playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
-		}
-		
-		let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2);
-		let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2);
-		
-		newPlayers[0] = [];
-		newPlayers[1] = [];
-		newPlayers[0][0] = playerOne;
-		newPlayers[0][1] = playerOneName;
-		newPlayers[0][2] = playerOneScore;
-		newPlayers[0][3] = playerOneELO;
-		newPlayers[1][0] = playerTwo;
-		newPlayers[1][1] = playerTwoName;
-		newPlayers[1][2] = playerTwoScore;
-		newPlayers[1][3] = playerTwoELO;
-		
-		// Debugging:
-		//console.log("Player One Score: " + playerOneScore);
-		//console.log("Player Two Score: " + playerTwoScore);
-		//console.log(playerOneELO);
-		//console.log(playerTwoELO);
-
-		logArray(newPlayers);
+	let playerTwoName = "File Not Found";
+	if(fs.existsSync(playerTwoNamePath)){
+		playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
 	}
+		
+	let playerOneScore = 0;
+	if(fs.existsSync(playerOneScorePath)){
+		playerOneScore = Number(fs.readFileSync(playerOneScorePath));
+	}
+		
+	let playerTwoScore = 0;
+	if(fs.existsSync(playerTwoScorePath)){
+		playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
+	}
+	
+	let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2);
+	let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2);
+		
+	newPlayers[0] = [];
+	newPlayers[1] = [];
+	newPlayers[0][0] = playerOne;
+	newPlayers[0][1] = playerOneName;
+	newPlayers[0][2] = playerOneScore;
+	newPlayers[0][3] = playerOneELO;
+	newPlayers[1][0] = playerTwo;
+	newPlayers[1][1] = playerTwoName;
+	newPlayers[1][2] = playerTwoScore;
+	newPlayers[1][3] = playerTwoELO;
+		
+	// Debugging:
+	//console.log("Player One Score: " + playerOneScore);
+	//console.log("Player Two Score: " + playerTwoScore);
+	//console.log(playerOneELO);
+	//console.log(playerTwoELO);
+	logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
@@ -107,19 +99,19 @@ app.post("/node-dopple-main", function(req, res){
 	let loserScoreFile = "Dopples/Actress_Score/" + loser + ".txt";
 	
 	let winnerOldScore = Number(fs.readFileSync(winnerScoreFile));
-	//console.log("Winner Old Score:" + winnerOldScore);
 	let loserOldScore = Number(fs.readFileSync(loserScoreFile));
+	//console.log("Winner Old Score:" + winnerOldScore);
 	//console.log("Loser Old Score:" + loserOldScore);
 
 	let winnerELO = ELO(winnerOldScore, loserOldScore);
-	//console.log("Winner ELO Rating: " + winnerELO);
 	let loserELO = ELO(loserOldScore, winnerOldScore);
+	//console.log("Winner ELO Rating: " + winnerELO);
 	//console.log("Loser ELO Rating: " + loserELO);
 	
 	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
-	//console.log("Winner New Score: " + winnerNewScore);
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
+	//console.log("Winner New Score: " + winnerNewScore);
 	//console.log("Loser New Score: " + loserNewScore);
 	
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
