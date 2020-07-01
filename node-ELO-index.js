@@ -33,6 +33,7 @@ app.get("/", function(req, res){
 	}
 	if(Array.isArray(newPlayers)){
 		//console.log("Making New Player Array!");
+		
 		let playerOne = getRandomIntInclusive(1, maxPlayers);
 		let playerTwo = playerOne + "D";
 		let playerOneNamePath = namePath + playerOne + ".txt";
@@ -40,38 +41,28 @@ app.get("/", function(req, res){
 		let playerOneScorePath = scorePath + playerOne + ".txt";
 		let playerTwoScorePath = scorePath + playerTwo + ".txt";
 		
-		let playerOneName = "";
+		let playerOneName = "File Not Found";
 		if(fs.existsSync(playerOneNamePath)){
-			//console.log("File Exists");
 			playerOneName = fs.readFileSync(playerOneNamePath).toString();
 		}
 		
-		let playerTwoName = "";
+		let playerTwoName = "File Not Found";
 		if(fs.existsSync(playerTwoNamePath)){
-			//console.log("File Exists");
 			playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
 		}
 		
 		let playerOneScore = 0;
 		if(fs.existsSync(playerOneScorePath)){
-			//console.log("File Exists");
 			playerOneScore = Number(fs.readFileSync(playerOneScorePath));
 		}
 		
 		let playerTwoScore = 0;
 		if(fs.existsSync(playerTwoScorePath)){
-			//console.log("File Exists");
 			playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
 		}
 		
-		//console.log("Player One Score: " + playerOneScore);
-		//console.log("Player Two Score: " + playerTwoScore);
 		let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2);
 		let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2);
-		//console.log(playerOneELO);
-		//console.log(playerTwoELO);
-		
-		
 		
 		newPlayers[0] = [];
 		newPlayers[1] = [];
@@ -83,6 +74,12 @@ app.get("/", function(req, res){
 		newPlayers[1][1] = playerTwoName;
 		newPlayers[1][2] = playerTwoScore;
 		newPlayers[1][3] = playerTwoELO;
+		
+		// Debugging:
+		//console.log("Player One Score: " + playerOneScore);
+		//console.log("Player Two Score: " + playerTwoScore);
+		//console.log(playerOneELO);
+		//console.log(playerTwoELO);
 
 		logArray(newPlayers);
 	}
