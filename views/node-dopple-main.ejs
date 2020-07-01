@@ -41,7 +41,6 @@
 <div style="width: 50%"><p>Based upon previous user voting/input, there is a <%= playerOneELO %>% "ELO formula chance" that people will think <%= playerOneName %> is actually <%= playerOneName %> and not <%= playerTwoName %> (the formula predicts a <%= playerTwoELO %>% chance of <%= playerTwoName %> being mistaken for <%= playerOneName %>, based upon previous input into this app)</p></div>
 
 <form action="/node-dopple-main" method="POST">
-
 <%
 let rando = getRandomIntInclusive(1, 2);
 if(rando === 1){ // Randomize pictures
