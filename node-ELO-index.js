@@ -18,12 +18,17 @@ app.set("view engine", "ejs");
 
 app.listen(port);
 
+const namePath = "Dopples/Actress_Name/";
+const scorePath = "Dopples/Actress_Score/";
+const dirLength = fs.readdirSync(namePath).length;
+let maxPlayers = 5;
 let playerArray = [];
 let newPlayers = [];
-let namePath = "Dopples/Actress_Name/";
-let scorePath = "Dopples/Actress_Score/";
 
-let maxPlayers = 5;
+if(dirLength > 0){
+	maxPlayers = dirLength / 2;
+	console.log("Number of doppleganger sets: " + (maxPlayers / 2));
+}
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
