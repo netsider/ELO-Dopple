@@ -25,9 +25,9 @@ let maxPlayers = 5;
 let playerArray = [];
 let newPlayers = [];
 
-if(dirLength > 0){
-	maxPlayers = dirLength / 2;
-	console.log("Number of doppleganger sets: " + (maxPlayers / 2));
+if(dirLength > 1){
+	maxPlayers = (dirLength / 2);
+	console.log("Number of doppleganger sets: " + maxPlayers);
 }
 
 app.get("/", function(req, res){
@@ -98,7 +98,7 @@ app.post("/node-dopple-main", function(req, res){
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0];
 	let loser = unserialized[1];
-	let winnerLoserArray = {winner: winner, loser: loser};
+	//let winnerLoserArray = {winner: winner, loser: loser};
 	
 	let winnerScoreFile = "Dopples/Actress_Score/" + winner + ".txt";
 	let loserScoreFile = "Dopples/Actress_Score/" + loser + ".txt";
