@@ -129,7 +129,7 @@ app.post("/node-dopple-main", function(req, res){
 	
 	console.log(winnerLoserArray);
 	
-	playerArray.push(winnerLoserArray);
+	playerArray[0] = winnerLoserArray; //playerArray.push(winnerLoserArray); 
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
