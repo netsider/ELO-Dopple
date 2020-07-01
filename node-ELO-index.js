@@ -99,8 +99,6 @@ app.post("/node-dopple-main", function(req, res){
 	let winner = unserialized[0].toString();
 	let loser = unserialized[1].toString();
 	
-	//let winnerLoserArray = {winner: winner, loser: loser};
-	
 	let winnerScoreFile = "Dopples/Actress_Score/" + winner + ".txt";
 	let loserScoreFile = "Dopples/Actress_Score/" + loser + ".txt";
 	
@@ -114,17 +112,17 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Winner ELO Rating: " + winnerELO);
 	//console.log("Loser ELO Rating: " + loserELO);
 	
-	let winnerNamePath = namePath + winner + ".txt";
-	let loserNamePath = namePath + loser + ".txt";
-	let winnerName = fs.readFileSync(winnerNamePath).toString();
-	let loserName = fs.readFileSync(loserNamePath).toString();
-	//console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
-	
 	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	//console.log("Winner New Score: " + winnerNewScore);
 	//console.log("Loser New Score: " + loserNewScore);
+	
+	let winnerNamePath = namePath + winner + ".txt";
+	let loserNamePath = namePath + loser + ".txt";
+	let winnerName = fs.readFileSync(winnerNamePath).toString();
+	let loserName = fs.readFileSync(loserNamePath).toString();
+	//console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
 	
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
