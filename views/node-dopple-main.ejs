@@ -7,8 +7,8 @@
 	
 	let photoPath  = "Dopples/Actress_Picture/";
 	let maxPlayers = 5;
-	let imgHeight = "200px";
-	let imgWidth = "150px";
+	let imgHeight = "";
+	let imgWidth = "";
 				
 	let playerOne = newPlayers[0][0];
 	let playerOneName = newPlayers[0][1];
@@ -45,12 +45,12 @@
 let rando = getRandomIntInclusive(1, 2);
 if(rando === 1){ // Randomize pictures
 %>
-	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>">
+	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>" style="transform: scale(0.25)"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>" style="transform: scale(0.25)">
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
 	
 <% }else{ %>
-	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>">
+	<img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>" style="transform: scale(0.25)"><img height="<%= imgHeight %>" width="<%= imgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>" style="transform: scale(0.25)">
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
 <% }; %>
