@@ -21,13 +21,13 @@ app.listen(port);
 const namePath = "Dopples/Actress_Name/";
 const scorePath = "Dopples/Actress_Score/";
 const dirLength = fs.readdirSync(namePath).length;
-let maxPlayers = 5;
+let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 
 if(dirLength > 1){
 	maxPlayers = (dirLength / 2);
-	console.log("Number of doppleganger sets: " + maxPlayers);
+	//console.log("Number of doppleganger sets: " + maxPlayers);
 }
 
 app.get("/", function(req, res){
@@ -96,8 +96,9 @@ app.post("/node-dopple-main", function(req, res){
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	let unserialized = JSON.parse(name);
-	let winner = unserialized[0];
-	let loser = unserialized[1];
+	let winner = unserialized[0].toString();
+	let loser = unserialized[1].toString();
+	
 	//let winnerLoserArray = {winner: winner, loser: loser};
 	
 	let winnerScoreFile = "Dopples/Actress_Score/" + winner + ".txt";
@@ -113,6 +114,12 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Winner ELO Rating: " + winnerELO);
 	//console.log("Loser ELO Rating: " + loserELO);
 	
+	let winnerNamePath = namePath + winner + ".txt";
+	let loserNamePath = namePath + loser + ".txt";
+	let winnerName = fs.readFileSync(winnerNamePath).toString();
+	let loserName = fs.readFileSync(loserNamePath).toString();
+	console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
+	
 	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
@@ -122,7 +129,7 @@ app.post("/node-dopple-main", function(req, res){
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
 	
-	winnerLoserArray = {winner: winner, loser: loser, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
+	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
 	
 	console.log(winnerLoserArray);
 	
