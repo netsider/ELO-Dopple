@@ -81,17 +81,17 @@ if(rando === 1){ // Randomize pictures
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		console.log("Array NOT empty!");
 	
-		playerArray.forEach(function(currentArray){
-		if(Number(currentArray.winner)){ %>
+		playerArray.forEach(function(currentArray){ %>
+				<div id="scoreBoard">
+				<p><strong>Last Round:</strong></p>
+		<% if(Number(currentArray.winner)){ %>
 				<p>You correctly chose <%= currentArray.winnerName %> when asked to choose <%= currentArray.winnerName %>!</p>
 		<%	}else{ %>
-				<p>You chose <%= currentArray.winnerName %>, but you were asked to choose <%= currentArray.loserName %>!</p>
-	
+				<p>You incorrectly chose <%= currentArray.winnerName %> when asked to choose <%= currentArray.loserName %>!</p>
 		<% } %>
-			<div id="scoreBoard">
-				<p><strong>Last Round:</strong></p>
-				<p>Winner: <%= currentArray.winner %></p>
-				<p>Loser: <%= currentArray.loser %></p>
+			
+				<!-- <p>Winner: <%= currentArray.winner %></p> -->
+				<!-- <p>Loser: <%= currentArray.loser %></p> -->
 				<p>Winner Name: <%= currentArray.winnerName %></p>
 				<p>Loser Name: <%= currentArray.loserName %></p>
 				<p>Winner Old Score: <%= currentArray.winnerOldScore %></p>
