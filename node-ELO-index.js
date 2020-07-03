@@ -36,15 +36,18 @@ app.get("/", function(req, res){
 
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	let playerTwo = playerOne + "D";
+	
 	let playerOneNamePath = namePath + playerOne + ".txt";
 	let playerTwoNamePath = namePath + playerTwo + ".txt";
+	
 	let playerOneScorePath = scorePath + playerOne + ".txt";
 	let playerTwoScorePath = scorePath + playerTwo + ".txt";
+	
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
 	let dimensions1 = sizeOf(playerOneImage);
-	let aspectRatioP1 = dimensions1.height / dimensions1.width;
 	let dimensions2 = sizeOf(playerTwoImage);
+	let aspectRatioP1 = dimensions1.height / dimensions1.width;
 	let aspectRatioP2 = dimensions2.height / dimensions2.width;
 	
 	let playerOneName = "File Not Found";
