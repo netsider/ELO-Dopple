@@ -3,6 +3,7 @@
 <title>Celebrity Doppleganger App</title>
 </head>
 <body>
+<center>
 <% 
 	function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
@@ -40,9 +41,13 @@
 	playerTwoIsWinnerArray = JSON.stringify(playerTwoIsWinnerArray);
 	
 %>
-<center>
-<h2>Here are <u><%= playerOneName %></u> and <u><%= playerTwoName %></u>.   Which one is <u><%= playerOneName %></u>?</h2>
-<div style="width: 50%;"><p>Based upon previous user voting/input, there is a <%= playerOneELO %>% "ELO formula chance" that people will think <%= playerOneName %> is actually <%= playerOneName %> and not <%= playerTwoName %> (the formula predicts a <%= playerTwoELO %>% chance of <%= playerTwoName %> being mistaken for <%= playerOneName %>, based upon previous input into this app)</p></div>
+
+<div style="width: 50%;">
+	<h2>Here are <u><%= playerOneName %></u> and <u><%= playerTwoName %></u>.  They look alike sometimes.</h2>
+	<p>There is a <%= playerOneELO %>% chance you will accurately identify and select the picture below of <%= playerOneName %> (and not <%= playerTwoName %>)*.</p>
+	<p>Accordingly, there's a <%= playerTwoELO %>% chance the picture below of <%= playerTwoName %> will be mistaken for <%= playerOneName %>.</p>
+	<h2><strong>Choose which picture you think is <u><%= playerOneName %></u>:</strong></h2>
+</div>
 
 <%
 const rando = getRandomIntInclusive(1, 2);
