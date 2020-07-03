@@ -84,11 +84,13 @@ if(rando === 1){ // Randomize pictures
 				<div id="scoreBoard">
 				<p><strong>Last Round:</strong></p>
 		<% if(Number(currentArray.winner)){ %>
-				<p>You chose correctly!</p>
+				<!-- <p>You chose correctly!</p> -->
+				<p>You correctly identified <%= currentArray.winnerName %> when asked to choose <%= currentArray.winnerName %>!</p>
 				<p>You chose: <%= currentArray.winnerName %></p>
 				<p>You were asked to choose: <%= currentArray.winnerName %></p>
 		<%	}else{ %>
-				<p>You chose incorrectly!</p>
+				<!-- <p>You chose incorrectly!</p> -->
+				<p>You incorrectly chose <%= currentArray.winnerName %> when asked to choose <%= currentArray.loserName %>!</p>
 				<p>You chose: <%= currentArray.winnerName %></p>
 				<p>You were asked to choose: <%= currentArray.loserName %></p>
 		<% } %>
