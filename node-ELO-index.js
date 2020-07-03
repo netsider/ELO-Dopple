@@ -21,13 +21,12 @@ app.listen(port);
 const namePath = "Dopples/Actress_Name/";
 const scorePath = "Dopples/Actress_Score/";
 const dirLength = fs.readdirSync(namePath).length;
-let maxPlayers = 2;
+let maxPlayers = 1;
 let playerArray = [];
 let newPlayers = [];
 
 if(dirLength > 1){
 	maxPlayers = (dirLength / 2);
-	//console.log("Number of doppleganger sets: " + maxPlayers);
 }
 
 app.get("/", function(req, res){
