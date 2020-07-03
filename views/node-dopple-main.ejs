@@ -27,14 +27,12 @@
 	
 	// Determine and keep original aspect ratio (fully working)
 	let imgWidth = 240;
-	//let imgHeight = 320;
 	let playerOneImgWidth = imgWidth;
-	//let playerOneImgHeight = imgWidth * playerOneAR;
-	let playerOneImgHeight = String(imgWidth * playerOneAR) + "px";
-	console.log("Aspect Ratio P1: " + playerOneAR + " imgWidth: " + imgWidth + " = " + playerOneImgHeight);
+	let playerOneImgHeight = String(Math.floor(imgWidth * playerOneAR)) + "px";
+	//console.log("Aspect Ratio P1: " + playerOneAR + " imgWidth: " + imgWidth + " = " + playerOneImgHeight);
 	let playerTwoImgWidth = imgWidth;
-	let playerTwoImgHeight = String(imgWidth * playerTwoAR) + "px";
-	console.log("Aspect Ratio P2: " + playerTwoAR + " imgWidth: " + imgWidth + " = " + playerTwoImgHeight);
+	let playerTwoImgHeight = String(Math.floor(imgWidth * playerTwoAR)) + "px";
+	//console.log("Aspect Ratio P2: " + playerTwoAR + " imgWidth: " + imgWidth + " = " + playerTwoImgHeight);
 
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
