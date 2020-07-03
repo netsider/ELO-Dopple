@@ -34,6 +34,7 @@ if(dirLength > 1){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 
+	//let playerOne = "1";
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	let playerTwo = playerOne + "D";
 	
