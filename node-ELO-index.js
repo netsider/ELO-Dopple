@@ -4,10 +4,10 @@ const express  = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const http = require("http");
-const port = 3000;
+const fs = require("fs");
+const sizeOf = require("image-size");
 const app = express();
-const fs = require('fs');
-const sizeOf = require('image-size');
+const port = 3000;
 
 console.log("Starting...");
 
@@ -47,7 +47,6 @@ app.get("/", function(req, res){
 	let dimensions2 = sizeOf(playerTwoImage);
 	let aspectRatioP2 = dimensions2.height / dimensions2.width;
 	
-		
 	let playerOneName = "File Not Found";
 	if(fs.existsSync(playerOneNamePath)){
 		playerOneName = fs.readFileSync(playerOneNamePath).toString();
@@ -85,14 +84,13 @@ app.get("/", function(req, res){
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
 
-		
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
 	//console.log("Player Two Score: " + playerTwoScore);
 	//console.log(playerOneELO);
 	//console.log(playerTwoELO);
-	console.log("Aspect Ratio P1: " + aspectRatioP1);
-	console.log("Aspect Ratio P2: " + aspectRatioP2);
+	//console.log("Aspect Ratio P1: " + aspectRatioP1);
+	//console.log("Aspect Ratio P2: " + aspectRatioP2);
 	logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
