@@ -28,10 +28,10 @@
 	// Determine and keep original aspect ratio (my own creation)
 	let newImgWidth = 240;
 	let playerOneImgWidth = newImgWidth;
-	let playerOneImgHeight = String(Math.floor(playerOneImgWidth * playerOneAR)) + "px";
+	let playerOneImgHeight = Math.floor(playerOneImgWidth * playerOneAR);
 	//console.log("Aspect Ratio P1: " + playerOneAR + " playerOneImgWidth: " + playerOneImgWidth + " = " + playerOneImgHeight);
 	let playerTwoImgWidth = newImgWidth;
-	let playerTwoImgHeight = String(Math.floor(playerTwoImgWidth * playerTwoAR)) + "px";
+	let playerTwoImgHeight = Math.floor(playerTwoImgWidth * playerTwoAR);
 	//console.log("Aspect Ratio P2: " + playerTwoAR + " playerTwoImgWidth: " + playerTwoImgWidth + " = " + playerTwoImgHeight);
 
 	let playerOneImage = photoPath + playerOne + ".jpg";
@@ -63,13 +63,13 @@
 const rando = getRandomIntInclusive(1, 2);
 if(rando === 1){ // Randomize pictures
 %>
-	<div style="width: 50%; display: inline-block;"><img height="<%= playerOneImgHeight %>" width="<%= playerOneImgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= playerTwoImgHeight %>" width="<%= playerTwoImgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"></div>
+	<div style="width: 50%; display: inline-block;"><img height="<%= playerOneImgHeight %>px" width="<%= playerOneImgWidth %>px" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= playerTwoImgHeight %>px" width="<%= playerTwoImgWidth %>px" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"></div>
 	<form action="/node-dopple-main" method="POST">
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
 	
 <% }else{ %>
-	<div style="width: 50%; display: inline-block;"><img height="<%= playerTwoImgHeight %>" width="<%= playerTwoImgWidth %>" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"><img height="<%= playerOneImgHeight %>" width="<%= playerOneImgWidth %>" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"></div>
+	<div style="width: 50%; display: inline-block;"><img height="<%= playerTwoImgHeight %>px" width="<%= playerTwoImgWidth %>px" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"><img height="<%= playerOneImgHeight %>px" width="<%= playerOneImgWidth %>px" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"></div>
 	<form action="/node-dopple-main" method="POST">
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
