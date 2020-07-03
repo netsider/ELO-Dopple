@@ -7,6 +7,7 @@ const http = require("http");
 const port = 3000;
 const app = express();
 const fs = require('fs');
+const sizeOf = require('image-size');
 
 console.log("Starting...");
 
@@ -20,6 +21,7 @@ app.listen(port);
 
 const namePath = "Dopples/Actress_Name/";
 const scorePath = "Dopples/Actress_Score/";
+const photoPath  = "Dopples/Actress_Picture/";
 const dirLength = fs.readdirSync(namePath).length;
 let maxPlayers = 1;
 let playerArray = [];
@@ -38,6 +40,15 @@ app.get("/", function(req, res){
 	let playerTwoNamePath = namePath + playerTwo + ".txt";
 	let playerOneScorePath = scorePath + playerOne + ".txt";
 	let playerTwoScorePath = scorePath + playerTwo + ".txt";
+	let playerOneImage = photoPath + playerOne + ".jpg";
+	let playerTwoImage = photoPath + playerTwo + ".jpg";
+	
+	let dimensions = sizeOf(playerOneImage);
+	let aspectRatioP1 = dimensions.height / dimensions.width;
+	dimensions = sizeOf(playerTwoImage);
+	let aspectRatioP2 = dimensions.height / dimensions.width;
+	//console.log("Aspect Ratio P1: " + aspectRatioP1);
+	//console.log("Aspect Ratio P2: " + aspectRatioP2);
 		
 	let playerOneName = "File Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -68,10 +79,13 @@ app.get("/", function(req, res){
 	newPlayers[0][1] = playerOneName;
 	newPlayers[0][2] = playerOneScore;
 	newPlayers[0][3] = playerOneELO;
+	newPlayers[0][4] = aspectRatioP1;
+	
 	newPlayers[1][0] = playerTwo;
 	newPlayers[1][1] = playerTwoName;
 	newPlayers[1][2] = playerTwoScore;
 	newPlayers[1][3] = playerTwoELO;
+	newPlayers[1][4] = aspectRatioP2;
 		
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
