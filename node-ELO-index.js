@@ -42,13 +42,11 @@ app.get("/", function(req, res){
 	let playerTwoScorePath = scorePath + playerTwo + ".txt";
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
+	let dimensions1 = sizeOf(playerOneImage);
+	let aspectRatioP1 = dimensions1.height / dimensions1.width;
+	let dimensions2 = sizeOf(playerTwoImage);
+	let aspectRatioP2 = dimensions2.height / dimensions2.width;
 	
-	let dimensions = sizeOf(playerOneImage);
-	let aspectRatioP1 = dimensions.height / dimensions.width;
-	dimensions = sizeOf(playerTwoImage);
-	let aspectRatioP2 = dimensions.height / dimensions.width;
-	//console.log("Aspect Ratio P1: " + aspectRatioP1);
-	//console.log("Aspect Ratio P2: " + aspectRatioP2);
 		
 	let playerOneName = "File Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -86,12 +84,15 @@ app.get("/", function(req, res){
 	newPlayers[1][2] = playerTwoScore;
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
+
 		
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
 	//console.log("Player Two Score: " + playerTwoScore);
 	//console.log(playerOneELO);
 	//console.log(playerTwoELO);
+	console.log("Aspect Ratio P1: " + aspectRatioP1);
+	console.log("Aspect Ratio P2: " + aspectRatioP2);
 	logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
