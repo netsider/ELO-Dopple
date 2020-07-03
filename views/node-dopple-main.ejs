@@ -29,10 +29,11 @@
 	let imgWidth = 240;
 	//let imgHeight = 320;
 	let playerOneImgWidth = imgWidth;
-	let playerOneImgHeight = imgWidth * playerOneAR;
+	//let playerOneImgHeight = imgWidth * playerOneAR;
+	let playerOneImgHeight = String(imgWidth * playerOneAR) + "px";
 	console.log("Aspect Ratio P1: " + playerOneAR + " imgWidth: " + imgWidth + " = " + playerOneImgHeight);
 	let playerTwoImgWidth = imgWidth;
-	let playerTwoImgHeight = imgWidth * playerTwoAR;
+	let playerTwoImgHeight = String(imgWidth * playerTwoAR) + "px";
 	console.log("Aspect Ratio P2: " + playerTwoAR + " imgWidth: " + imgWidth + " = " + playerTwoImgHeight);
 
 	let playerOneImage = photoPath + playerOne + ".jpg";
