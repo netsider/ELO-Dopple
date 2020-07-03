@@ -12,8 +12,6 @@
 	};
 	
 	let photoPath  = "Dopples/Actress_Picture/";
-	//let imgHeight = 320;
-	
 	
 	let playerOne = newPlayers[0][0];
 	let playerOneName = newPlayers[0][1];
@@ -27,7 +25,9 @@
 	let playerTwoELO = newPlayers[1][3];
 	let playerTwoAR = newPlayers[1][4];
 	
+	// Determine and keep original aspect ratio (fully working)
 	let imgWidth = 240;
+	//let imgHeight = 320;
 	let playerOneImgWidth = imgWidth;
 	let playerOneImgHeight = imgWidth * playerOneAR;
 	console.log("Aspect Ratio P1: " + playerOneAR + " imgWidth: " + imgWidth + " = " + playerOneImgHeight);
