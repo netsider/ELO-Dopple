@@ -44,10 +44,10 @@ app.get("/", function(req, res){
 		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
 			console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
-				console.log("New players are the same as old players!  Choosing different...");
+				//console.log("New players are STILL the same as old players!  Choosing different...");
 				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
-			console.log("Successfully chose different player chosen than old player!");
+			console.log("Successfully chose different player than old player!");
 		}
 	}
 	let playerTwo = playerOne + "D";
