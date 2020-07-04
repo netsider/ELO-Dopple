@@ -45,8 +45,8 @@ app.get("/", function(req, res){
 	
 	// Doppleganger-specific player selection (if app is ever changed to accomodate two numerical players)
 	if(playerArray[0] != undefined){ // If winner/loser chosen -- to prevent showing same two people consequtively
-		console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
-		console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
+		//console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
+		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){ 
 			console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
