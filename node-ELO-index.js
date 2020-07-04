@@ -102,7 +102,7 @@ app.get("/", function(req, res){
 	if(playerArray.length){ // Make sure array empty before user clicks
 		//console.log("Player Array: " + JSON.stringify(playerArray));
 		//console.log("Resetting playerArray...");
-		playerArray = [];
+		//playerArray = [];
 	}	
 })
 
