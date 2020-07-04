@@ -41,12 +41,13 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	// playerOne = "1"; // manually set playerOne
 	
-	if(playerArray[0]){ // If winner/loser chosen -- to prevent showing same people consequtively
+	// Doppleganger-specific player selection (if app is ever changed to accomodate two numerical players)
+	if(playerArray[0] != undefined){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
 		console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
-		
-		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
+		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){ 
 			console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
 				//console.log("New players are STILL the same as old players!  Choosing different...");
@@ -55,11 +56,8 @@ app.get("/", function(req, res){
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
-	
-	
-	
-	// playerOne = "1"; // manually set playerOne
 	let playerTwo = playerOne + "D";
+	//End Doppleganger-specific code
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
 	let playerTwoNamePath = namePath + playerTwo + ".txt";
