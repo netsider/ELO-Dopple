@@ -37,7 +37,7 @@ app.get("/", function(req, res){
 	//let playerOne = "1";
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
-	if(playerArray[0]){ // If winner/loser chosen
+	if(playerArray[0]){ // If winner/loser chosen -- to prevent showing same people consequtively
 		console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
 		console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		
@@ -47,7 +47,7 @@ app.get("/", function(req, res){
 				//console.log("New players are STILL the same as old players!  Choosing different...");
 				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
-			console.log("Successfully chose different player than old player!");
+			//console.log("Successfully chose different player than old player!");
 		}
 	}
 	let playerTwo = playerOne + "D";
