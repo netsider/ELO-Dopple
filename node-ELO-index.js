@@ -34,7 +34,6 @@ if(dirLength > 1){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 
-	//let playerOne = "1";
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0]){ // If winner/loser chosen -- to prevent showing same people consequtively
@@ -50,6 +49,8 @@ app.get("/", function(req, res){
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
+	
+	// playerOne = "1"; // manually set playerOne
 	let playerTwo = playerOne + "D";
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
