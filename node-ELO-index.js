@@ -61,10 +61,13 @@ app.get("/", function(req, res){
 	
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
+	
+	// Calculate original aspect ratio of pictures, for later
 	let dimensions1 = sizeOf(playerOneImage);
 	let dimensions2 = sizeOf(playerTwoImage);
-	let aspectRatioP1 = dimensions1.height / dimensions1.width;
-	let aspectRatioP2 = dimensions2.height / dimensions2.width;
+	//let aspectRatioP1 = dimensions1.height / dimensions1.width;
+	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height);
+	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height);
 	
 	let playerOneName = "File Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -166,6 +169,11 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
+
+function getAspectRatio(w, h){
+	let ar = h / w;
+	return ar;
+};
 
 function getRandomIntInclusive(min, max) {
 		min = Math.ceil(min);
