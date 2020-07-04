@@ -1,11 +1,15 @@
 // Made by Russell Rounds
 
+// Node Modules
+const http = require("http");
+const fs = require("fs");
+
+// NPM Modules
 const express  = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const http = require("http");
-const fs = require("fs");
 const sizeOf = require("image-size");
+
 const app = express();
 const port = 3000;
 
