@@ -11,6 +11,11 @@
 	return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 	};
 	
+	function getNewHeightInAspectionRatio(width, aspectRatio){
+		let newHeight = Math.floor(width * aspectRatio);
+		return newHeight;
+	};
+	
 	let photoPath  = "Dopples/Actress_Picture/";
 	
 	let playerOne = newPlayers[0][0];
@@ -27,11 +32,12 @@
 	
 	// Keep original aspect ratio
 	let newImgWidth = 240;
-	let playerOneImgWidth = newImgWidth;
-	let playerOneImgHeight = Math.floor(playerOneImgWidth * playerOneAR);
-	//console.log("Aspect Ratio P1: " + playerOneAR + " playerOneImgWidth: " + playerOneImgWidth + " = " + playerOneImgHeight);
 	let playerTwoImgWidth = newImgWidth;
-	let playerTwoImgHeight = Math.floor(playerTwoImgWidth * playerTwoAR);
+	let playerOneImgWidth = newImgWidth;
+	//let playerOneImgHeight = Math.floor(playerOneImgWidth * playerOneAR);
+	let playerOneImgHeight = getNewHeightInAspectionRatio(newImgWidth, playerOneAR);
+	//console.log("Aspect Ratio P1: " + playerOneAR + " playerOneImgWidth: " + playerOneImgWidth + " = " + playerOneImgHeight);
+	let playerTwoImgHeight = getNewHeightInAspectionRatio(newImgWidth, playerTwoAR);
 	//console.log("Aspect Ratio P2: " + playerTwoAR + " playerTwoImgWidth: " + playerTwoImgWidth + " = " + playerTwoImgHeight);
 
 	let playerOneImage = photoPath + playerOne + ".jpg";
