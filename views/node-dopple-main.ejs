@@ -54,7 +54,7 @@
 	<h2>Here are <u><%= playerOneName %></u> and <u><%= playerTwoName %></u>.  They look alike sometimes.</h2>
 	<p>There is a <%= playerOneELO %>% chance you will accurately identify and select the picture below of <%= playerOneName %> (and not <%= playerTwoName %>)*.</p>
 	<p>Accordingly, there's a <%= playerTwoELO %>% chance the picture below of <%= playerTwoName %> will be mistaken for <%= playerOneName %>*.</p>
-	<p>* = <i><b>Percentages are determined by previous user input (answers) into this app</i></b>.</p>
+	<p>* = <i><b>Percentages are determined by previous user input (by all users) into this app</i></b>.</p>
 	<h2><strong>Choose which picture you think is <u><%= playerOneName %></u>:</strong></h2>
 </div>
 
@@ -64,14 +64,14 @@ if(rando === 1){ // Randomize pictures
 %>
 	<div style="width: 50%; display: inline-block;"><img height="<%= playerOneImgHeight %>px" width="<%= playerOneImgWidth %>px" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"><img height="<%= playerTwoImgHeight %>px" width="<%= playerTwoImgWidth %>px" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"></div>
 	<form action="/node-dopple-main" method="POST">
-	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
-	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
+	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the left</button></p>
+	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
 	
 <% }else{ %>
 	<div style="width: 50%; display: inline-block;"><img height="<%= playerTwoImgHeight %>px" width="<%= playerTwoImgWidth %>px" src="<%= playerTwoImage %>" name="playerImage" value="<%= playerTwoImage %>"><img height="<%= playerOneImgHeight %>px" width="<%= playerOneImgWidth %>px" src="<%= playerOneImage %>" name="playerImage" value="<%= playerOneImage %>"></div>
 	<form action="/node-dopple-main" method="POST">
-	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>"><%= playerOneName %> is on the left</button></p>
-	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>"><%= playerOneName %> is on the right</button></p>
+	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>">I think <%= playerOneName %> is on the left</button></p>
+	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
 <% }; %>
 		
 </form>
