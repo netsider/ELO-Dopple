@@ -151,11 +151,15 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Winner ELO Rating: " + winnerELO);
 	//console.log("Loser ELO Rating: " + loserELO);
 	
+	// ELO score distribution
 	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	//console.log("Winner New Score: " + winnerNewScore);
 	//console.log("Loser New Score: " + loserNewScore);
+	
+	let winnerNewELO = ELO(winnerNewScore, loserNewScore);
+	let loserNewELO = ELO(loserNewScore, winnerNewScore);
 	
 	let winnerNamePath = namePath + winner + ".txt";
 	let loserNamePath = namePath + loser + ".txt";
@@ -166,7 +170,7 @@ app.post("/node-dopple-main", function(req, res){
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
 	
-	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore};
+	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO};
 	
 	console.log(winnerLoserArray);
 	
