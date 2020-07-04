@@ -31,8 +31,10 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 
-if(dirLength > 1){
+if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
+}else{
+		console.log("Number of players in directory not even number!");
 }
 
 app.get("/", function(req, res){
@@ -54,6 +56,8 @@ app.get("/", function(req, res){
 		}
 	}
 	
+	
+	
 	// playerOne = "1"; // manually set playerOne
 	let playerTwo = playerOne + "D";
 	
@@ -69,9 +73,8 @@ app.get("/", function(req, res){
 	// Calculate original aspect ratio of pictures, for later
 	let dimensions1 = sizeOf(playerOneImage);
 	let dimensions2 = sizeOf(playerTwoImage);
-	//let aspectRatioP1 = dimensions1.height / dimensions1.width;
-	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height);
-	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height);
+	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height, 4);
+	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height, 4);
 	
 	let playerOneName = "File Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -174,9 +177,13 @@ app.post("/node-dopple-main", function(req, res){
 	res.redirect("/");
 });
 
-function getAspectRatio(w, h){
-	let ar = h / w;
+function getAspectRatio(w, h, decimalPlaces){
+	let ar = Number((h / w).toString().substr(0, decimalPlaces));
 	return ar;
+};
+	
+function ELO(A, B){
+	return 1 / (1 + Math.pow(10,((B - A)/400)));
 };
 
 function getRandomIntInclusive(min, max) {
@@ -184,10 +191,13 @@ function getRandomIntInclusive(min, max) {
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 };
-	
-function ELO(A, B){
-	return 1 / (1 + Math.pow(10,((B - A)/400)));
-};
+
+function isEven(value) {
+	if (value%2 == 0)
+		return true;
+	else
+		return false;
+}
 
 function logArray(theArray){
 	//console.log("Logging Array...");
