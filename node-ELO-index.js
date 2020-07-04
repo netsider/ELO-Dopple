@@ -23,7 +23,7 @@ const namePath = "Dopples/Actress_Name/";
 const scorePath = "Dopples/Actress_Score/";
 const photoPath  = "Dopples/Actress_Picture/";
 const dirLength = fs.readdirSync(namePath).length;
-let maxPlayers = 1;
+let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 
@@ -36,6 +36,20 @@ app.get("/", function(req, res){
 
 	//let playerOne = "1";
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	
+	if(playerArray[0]){ // If winner/loser chosen
+		console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
+		console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
+		
+		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
+			console.log("New players are the same as old players!  Choosing different...");
+			while(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
+				console.log("New players are the same as old players!  Choosing different...");
+				playerOne = getRandomIntInclusive(1, maxPlayers);
+			}
+			console.log("Successfully chose different player chosen than old player!");
+		}
+	}
 	let playerTwo = playerOne + "D";
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
