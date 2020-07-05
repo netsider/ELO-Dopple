@@ -102,10 +102,10 @@ if(rando === 1){ // Randomize pictures
 				<p><%= currentArray.loserName %> Old Score: <%= currentArray.loserOldScore %></p>
 				<p><%= currentArray.winnerName %> New Score: <%= currentArray.winnerNewScore %></p>
 				<p><%= currentArray.loserName %> New Score: <%= currentArray.loserNewScore %></p>
-				<p><%= currentArray.winnerName %> ELO (old): <%= currentArray.winnerELO %></p>
-				<p><%= currentArray.winnerName %> ELO (new): <%= currentArray.winnerNewELO %></p>
-				<p><%= currentArray.loserName %> ELO (old): <%= currentArray.loserELO %></p>
-				<p><%= currentArray.loserName %> ELO (new): <%= currentArray.loserNewELO %></p>
+				<p><%= currentArray.winnerName %> ELO (old): <%= (currentArray.winnerELO * 100).toString().substr(0,5) %>%</p>
+				<p><%= currentArray.winnerName %> ELO (new): <%= (currentArray.winnerNewELO * 100).toString().substr(0,5) %>%</p>
+				<p><%= currentArray.loserName %> ELO (old): <%= (currentArray.loserELO * 100).toString().substr(0,5) %>%</p>
+				<p><%= currentArray.loserName %> ELO (new): <%= (currentArray.loserNewELO * 100).toString().substr(0,5) %>%</p>
 			</div>
 	<%});
 	}else{
