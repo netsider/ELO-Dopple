@@ -133,6 +133,11 @@ app.get("/", function(req, res){
 
 app.post("/resetScores", function(req, res){
 	console.log("Resetting Scores...");
+	let reset = Number(req.body.reset);
+	
+	if(reset === 1){
+		console.log("Reset: " + reset);
+	}
 })
 
 
