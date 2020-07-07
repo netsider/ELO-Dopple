@@ -136,10 +136,24 @@ app.post("/resetScores", function(req, res){
 	let reset = Number(req.body.reset);
 	
 	if(reset === 1){
-		console.log("Reset: " + reset);
+		console.log("Resetting Scores: " + reset);
+		
+		let startingScore = 0;
+		
+		for (let i = 0; i < dirLength; i++) {
+			//console.log("i: " + i);
+			
+			let scoreFileTemp1 = scorePath + i + ".txt";
+			let scoreFileTemp2 = scorePath + i + "D" + ".txt";
+			console.log("Resetting " + scoreFileTemp1);
+			console.log("Resetting " + scoreFileTemp2);
+			fs.writeFileSync(scoreFileTemp1, "0");
+			fs.writeFileSync(scoreFileTemp2, "0");
+			//console.log("Done Resetting Scores.");
+		}
+		res.redirect("/");
 	}
 })
-
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
