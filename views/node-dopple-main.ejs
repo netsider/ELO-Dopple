@@ -82,30 +82,36 @@ if(rando === 1){ // Randomize pictures
 		//console.log("Array NOT empty!");
 		playerArray.forEach(function(currentArray){ %>
 				<div id="scoreBoard">
-				<p><strong>Last Round:</strong></p>
+				<p><u>Last Round:</u></p>
 		<% if(Number(currentArray.winner)){ %>
-				<!-- <p>You chose correctly!</p> -->
-				<p>You correctly identified <%= currentArray.winnerName %> when asked to choose <%= currentArray.winnerName %>!</p>
-				<p>You chose: <%= currentArray.winnerName %></p>
-				<p>You were asked to choose: <%= currentArray.winnerName %></p>
+				<div id="choseCorrect">
+					<!-- <p>You chose correctly!</p> -->
+					<p>You <span  style="color: green;font-weight: bold;">correctly</span> identified <strong><%= currentArray.winnerName %></strong> when asked to choose <strong><%= currentArray.winnerName %>!</strong></p>
+					
+					<p>You chose: <%= currentArray.winnerName %></p>
+					<p>You were asked to choose: <%= currentArray.winnerName %></p>
+				</div>
 		<%	}else{ %>
-				<!-- <p>You chose incorrectly!</p> -->
-				<p>You incorrectly chose <%= currentArray.winnerName %> when asked to choose <%= currentArray.loserName %>!</p>
-				<p>You chose: <%= currentArray.winnerName %></p>
-				<p>You were asked to choose: <%= currentArray.loserName %></p>
+				<div id="choseIncorrect">
+					<!-- <p>You chose incorrectly!</p> -->
+					<p>You <span  style="color: red;font-weight: bold;">incorrectly</span> chose <strong><%= currentArray.winnerName %></strong> when asked to choose <strong><%= currentArray.loserName %>!</strong></p>
+					<p>You chose: <%= currentArray.winnerName %></p>
+					<p>You were asked to choose: <%= currentArray.loserName %></p>
+				</div>
 		<% } %>
-				<!-- <p>Winner: <%= currentArray.winner %></p> -->
-				<!-- <p>Loser: <%= currentArray.loser %></p> -->
-				<!-- <p>Winner Name: <%= currentArray.winnerName %></p> -->
-				<!-- <p>Loser Name: <%= currentArray.loserName %></p> -->
-				<p><%= currentArray.winnerName %> Old Score: <%= currentArray.winnerOldScore.toString().substr(0,8) %></p>
-				<p><%= currentArray.winnerName %> New Score: <%= currentArray.winnerNewScore.toString().substr(0,8) %></p>
-				<p><%= currentArray.loserName %> Old Score: <%= currentArray.loserOldScore.toString().substr(0,8) %></p>
-				<p><%= currentArray.loserName %> New Score: <%= currentArray.loserNewScore.toString().substr(0,8) %></p>
-				<p><%= currentArray.winnerName %> ELO (old): <%= (currentArray.winnerELO * 100).toString().substr(0,5) %>%</p>
-				<p><%= currentArray.winnerName %> ELO (new): <%= (currentArray.winnerNewELO * 100).toString().substr(0,5) %>%</p>
-				<p><%= currentArray.loserName %> ELO (old): <%= (currentArray.loserELO * 100).toString().substr(0,5) %>%</p>
-				<p><%= currentArray.loserName %> ELO (new): <%= (currentArray.loserNewELO * 100).toString().substr(0,5) %>%</p>
+				
+					<!-- <p>Winner: <%= currentArray.winner %></p> -->
+					<!-- <p>Loser: <%= currentArray.loser %></p> -->
+					<!-- <p>Winner Name: <%= currentArray.winnerName %></p> -->
+					<!-- <p>Loser Name: <%= currentArray.loserName %></p> -->
+					<p><%= currentArray.winnerName %> Old Score: <%= currentArray.winnerOldScore.toString().substr(0,8) %></p>
+					<p><%= currentArray.winnerName %> New Score: <%= currentArray.winnerNewScore.toString().substr(0,8) %></p>
+					<p><%= currentArray.loserName %> Old Score: <%= currentArray.loserOldScore.toString().substr(0,8) %></p>
+					<p><%= currentArray.loserName %> New Score: <%= currentArray.loserNewScore.toString().substr(0,8) %></p>
+					<p><%= currentArray.winnerName %> ELO (old): <%= (currentArray.winnerELO * 100).toString().substr(0,5) %>%</p>
+					<p><%= currentArray.winnerName %> ELO (new): <%= (currentArray.winnerNewELO * 100).toString().substr(0,5) %>%</p>
+					<p><%= currentArray.loserName %> ELO (old): <%= (currentArray.loserELO * 100).toString().substr(0,5) %>%</p>
+					<p><%= currentArray.loserName %> ELO (new): <%= (currentArray.loserNewELO * 100).toString().substr(0,5) %>%</p>
 			</div>
 	<%});
 	}else{
