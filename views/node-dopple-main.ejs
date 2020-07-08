@@ -74,12 +74,12 @@ if(rando === 1){ // Randomize pictures
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>">I think <%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
 <% }; 
-if(newPlayers[3] != "true"){
+if(newPlayers[3] === "true"){
 %>
-	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1">
+	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
 	</form>
 <% }else{ %>
-	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
+	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1">
 	</form>
 <% }; %>
 
