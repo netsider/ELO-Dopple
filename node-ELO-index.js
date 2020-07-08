@@ -63,7 +63,7 @@ app.get("/", function(req, res){
 		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){ 
 			console.log("New players are the same as old players!  Choosing different...");
-			while(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){
+			while(playerOne == playerArray[0].winner.charAt(0)){
 				//console.log("New players are STILL the same as old players!  Choosing different...");
 				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
@@ -145,13 +145,14 @@ app.get("/", function(req, res){
 })
 
 app.post("/resetScores", function(req, res){
-	//console.log("Resetting Scores...");
+	console.log("Resetting Scores...");
+	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	let reset = Number(req.body.reset);
 	
 	if(reset === 1){
-		let startingScore = 0;
+		let startingScore = "0";
 		
-		for (let i = 0; i < dirLength; i++) {
+		for (let i = 1; i < dirLength - 1; i++) {
 			let scoreFileTemp1 = scorePath + i + ".txt";
 			let scoreFileTemp2 = scorePath + i + "D" + ".txt";
 			console.log("Resetting " + scoreFileTemp1);
