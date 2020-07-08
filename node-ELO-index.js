@@ -45,12 +45,16 @@ app.get("/", function(req, res){
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
+		//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
 		if(playerArray[0].lockPlayer === 1){
 			console.log("Players Locked!");
 			//console.log("Test: " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
+		}else{
+			newPlayers[3] = "false";
+			playerIsLocked = 0;
 		}
 	}
 	
