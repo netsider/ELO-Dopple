@@ -73,11 +73,21 @@ if(rando === 1){ // Randomize pictures
 	<form action="/node-dopple-main" method="POST">
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>">I think <%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
+<% }; 
+if(newPlayers[3] != "true"){
+%>
+	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1">
+	</form>
+<% }else{ %>
+	<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
+	</form>
 <% }; %>
-</form>
+
+
 <form action="/resetScores" method="POST">
 <p><button type="submit" name="reset" value="1">Reset all scores to 0.</button></p>
 </form>
+
 <%
 	if (Array.isArray(playerArray) && playerArray.length){ 
 		//console.log("Array NOT empty!");
