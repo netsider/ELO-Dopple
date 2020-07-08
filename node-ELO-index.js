@@ -27,6 +27,7 @@ const namePath = "Dopples/Actress_Name/";
 const scorePath = "Dopples/Actress_Score/";
 const photoPath  = "Dopples/Actress_Picture/";
 const dirLength = fs.readdirSync(namePath).length;
+const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
@@ -174,7 +175,6 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Loser ELO Rating: " + loserELO);
 	
 	// ELO score distribution
-	const k = 32;
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
 	//console.log("Winner New Score: " + winnerNewScore);
