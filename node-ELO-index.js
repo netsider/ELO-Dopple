@@ -31,6 +31,7 @@ const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
+let playerIsLocked = 0;
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -40,12 +41,20 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-
-	let playerOne = getRandomIntInclusive(1, maxPlayers);
-	// playerOne = "1"; // manually set playerOne
 	
-	// Doppleganger-specific player selection (if app is ever changed to accomodate two numerical players)
-	if(playerArray[0] != undefined){ // If winner/loser chosen -- to prevent showing same two people consequtively
+	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	
+	if(playerArray[0] != undefined){
+		if(playerArray[0].lockPlayer === 1){
+			console.log("Players Locked!");
+			//console.log("Test: " + playerArray[0].winner.charAt(0));
+			playerOne = playerArray[0].winner.charAt(0);
+			playerIsLocked = 1;
+			newPlayers[3] = "true";
+		}
+	}
+	
+	if(playerArray[0] != undefined && playerIsLocked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		//console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
 		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){ 
@@ -57,8 +66,8 @@ app.get("/", function(req, res){
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
+	
 	let playerTwo = playerOne + "D";
-	//End Doppleganger-specific code
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
 	let playerTwoNamePath = namePath + playerTwo + ".txt";
@@ -75,12 +84,12 @@ app.get("/", function(req, res){
 	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height, 4);
 	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height, 4);
 	
-	let playerOneName = "File Not Found";
+	let playerOneName = "Namefile Not Found";
 	if(fs.existsSync(playerOneNamePath)){
 		playerOneName = fs.readFileSync(playerOneNamePath).toString();
 	}
 		
-	let playerTwoName = "File Not Found";
+	let playerTwoName = "Namefile Not Found";
 	if(fs.existsSync(playerTwoNamePath)){
 		playerTwoName = fs.readFileSync(playerTwoNamePath).toString();
 	}
@@ -125,9 +134,8 @@ app.get("/", function(req, res){
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
-	if(playerArray.length){ // Make sure array empty before user clicks
+	if(playerArray.length){
 		//console.log("Player Array: " + JSON.stringify(playerArray));
-		//console.log("Resetting playerArray...");
 		//playerArray = [];
 	}	
 })
@@ -154,7 +162,8 @@ app.post("/resetScores", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-	
+	console.log("lockPlayer: " + req.body.lockPlayer);
+	let lockPlayer = Number(req.body.lockPlayer);
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	let unserialized = JSON.parse(name);
@@ -192,7 +201,7 @@ app.post("/node-dopple-main", function(req, res){
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
 	
-	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO};
+	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO, lockPlayer: lockPlayer};
 	
 	console.log(winnerLoserArray);
 	
