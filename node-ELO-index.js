@@ -32,6 +32,7 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let playerIsLocked = 0;
+let fuckYou = [];
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -41,11 +42,14 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	
+	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
+	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
+	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
 		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
+		console.log("playerArray.lockPlayer: " + playerArray[0].lockPlayer);
 		if(playerArray[0].lockPlayer === 1){
 			console.log("Players Locked!");
 			console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
@@ -198,29 +202,24 @@ app.post("/node-dopple-main", function(req, res){
 
 app.post("/resetScores", function(req, res){
 	console.log("Resetting Scores...");
-	//console.log("req.body.lockPlayer: " + req.body.lockPlayer);
-	//console.log("req.body.reset: " + req.body.reset);
-	//console.log("req.body: " + req.body);
-	if(playerArray == undefined){
-		console.log("Making array!");
-		let playerArray = [];
-	}
-	//let myArray = {lockPlayer: 1};
 	
-	//playerArray[0] = myArray;
-	playerArray[0] = [];
-	//playerArray[0].lockPlayer = 1;
+	
+	
+	console.log("----playerArray----");
+	logArray(playerArray);
+	console.log(playerArray);
+	
+	console.log("----req.body----");
+	logArray(req.body);
 	
 	if(Number(req.body.lockPlayer) === 1){
-		playerArray[0].lockPlayer = 1;
-		playerArray[0].winner = "1";
-		playerArray[0].loser = "1D";
+		//playerArray[0]['winner'] = "1";
+		fuckYou[0] = 1;
+	}else{
+		fuckYou[0] = 0;
 	}
 	
-	console.log("playerArray: ");
-	logArray(playerArray);
-	console.log("req.body: ");
-	logArray(req.body);
+	
 	let reset = Number(req.body.reset);
 	
 	if(reset === 1){
