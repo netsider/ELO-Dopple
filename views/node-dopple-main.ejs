@@ -85,6 +85,11 @@ if(newPlayers[3] === "true"){
 
 
 <form action="/resetScores" method="POST">
+<% if(newPlayers[3] === "true"){ %>
+<input type="hidden" name="lockPlayer" value="1">
+<% }else{ %>
+<input type="hidden" name="lockPlayer" value="0">
+<% } %>
 <p><button type="submit" name="reset" value="1">Reset all scores to 0.</button></p>
 </form>
 
