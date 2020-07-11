@@ -32,7 +32,7 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let playerIsLocked = 0;
-let replaceArray = [];
+let resetArray = [];
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -46,6 +46,16 @@ app.get("/", function(req, res){
 	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
 	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	
+	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
+		// do nothing
+	}else{
+		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
+			playerOne = resetArray[1]; // choose locked player
+			playerIsLocked = 1;
+			newPlayers[3] = "true";
+		}
+	}
 	
 	if(playerArray[0] != undefined){
 		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
@@ -214,14 +224,14 @@ app.post("/resetScores", function(req, res){
 	
 	if(Number(req.body.lockPlayer) === 1){
 		//playerArray[0]['winner'] = "1";
-		replaceArray[0] = req.body.lockPlayer;
-		replaceArray[1] = req.body.playerOneHidden;
+		resetArray[0] = req.body.lockPlayer;
+		resetArray[1] = req.body.playerOneHidden;
 	}else{
-		replaceArray[0] = 0;
-		replaceArray[1] = 0;
+		resetArray[0] = 0;
+		resetArray[1] = 0;
 	}
 	
-	console.log("replaceArray:" + replaceArray);
+	console.log("resetArray:" + resetArray);
 	
 	
 	let reset = Number(req.body.reset);
