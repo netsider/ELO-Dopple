@@ -45,10 +45,10 @@ app.get("/", function(req, res){
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
-		//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
+		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
 		if(playerArray[0].lockPlayer === 1){
 			console.log("Players Locked!");
-			//console.log("Test: " + playerArray[0].winner.charAt(0));
+			console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -56,12 +56,14 @@ app.get("/", function(req, res){
 			newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
+	}else{
+			console.log("playerArray undefined!");
 	}
 	
 	if(playerArray[0] != undefined && playerIsLocked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		//console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
 		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
-		if(playerOne == playerArray[0].winner.charAt(0) && playerOne == playerArray[0].winner.charAt(0)){ 
+		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
 				//console.log("New players are STILL the same as old players!  Choosing different...");
@@ -144,30 +146,6 @@ app.get("/", function(req, res){
 	}	
 })
 
-app.post("/resetScores", function(req, res){
-	console.log("Resetting Scores...");
-	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
-	let reset = Number(req.body.reset);
-	
-	if(reset === 1){
-		let startingScore = "0";
-		
-		for (let i = 1; i <= dirLength; i++) {
-			let scoreFileTemp1 = scorePath + i + ".txt";
-			let scoreFileTemp2 = scorePath + i + "D" + ".txt";
-			console.log("Resetting " + scoreFileTemp1);
-			console.log("Resetting " + scoreFileTemp2);
-			fs.writeFileSync(scoreFileTemp1, startingScore);
-			fs.writeFileSync(scoreFileTemp2, startingScore);
-			if(dirLength === i){
-				console.log("All " + dirLength +  " score files reset!");
-			}
-		}
-		playerArray = [];
-		res.redirect("/");
-	}
-})
-
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
 	console.log("lockPlayer: " + req.body.lockPlayer);
@@ -217,6 +195,53 @@ app.post("/node-dopple-main", function(req, res){
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
+
+app.post("/resetScores", function(req, res){
+	console.log("Resetting Scores...");
+	//console.log("req.body.lockPlayer: " + req.body.lockPlayer);
+	//console.log("req.body.reset: " + req.body.reset);
+	//console.log("req.body: " + req.body);
+	if(playerArray == undefined){
+		console.log("Making array!");
+		let playerArray = [];
+	}
+	//let myArray = {lockPlayer: 1};
+	
+	//playerArray[0] = myArray;
+	playerArray[0] = [];
+	//playerArray[0].lockPlayer = 1;
+	
+	if(Number(req.body.lockPlayer) === 1){
+		playerArray[0].lockPlayer = 1;
+		playerArray[0].winner = "1";
+		playerArray[0].loser = "1D";
+	}
+	
+	console.log("playerArray: ");
+	logArray(playerArray);
+	console.log("req.body: ");
+	logArray(req.body);
+	let reset = Number(req.body.reset);
+	
+	if(reset === 1){
+		let startingScore = "0";
+		
+		for (let i = 1; i <= dirLength; i++) {
+			let scoreFileTemp1 = scorePath + i + ".txt";
+			let scoreFileTemp2 = scorePath + i + "D.txt";
+			console.log("Resetting " + scoreFileTemp1);
+			console.log("Resetting " + scoreFileTemp2);
+			fs.writeFileSync(scoreFileTemp1, startingScore);
+			fs.writeFileSync(scoreFileTemp2, startingScore);
+			if(dirLength === i){
+				console.log("All " + dirLength +  " score files reset!");
+			}
+		}
+		
+		console.log("Redirecting to / ...");
+		res.redirect("/");
+	}
+})
 
 function getAspectRatio(w, h, decimalPlaces){
 	let ar = Number((h / w).toString().substr(0, decimalPlaces));
