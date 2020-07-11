@@ -82,7 +82,7 @@ app.get("/", function(req, res){
 	let playerOneImage = photoPath + playerOne + ".jpg";
 	let playerTwoImage = photoPath + playerTwo + ".jpg";
 	
-	// Calculate original aspect ratio of pictures, for later
+	// Calculate original aspect ratio of pictures
 	let dimensions1 = sizeOf(playerOneImage);
 	let dimensions2 = sizeOf(playerTwoImage);
 	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height, 4);
@@ -152,13 +152,16 @@ app.post("/resetScores", function(req, res){
 	if(reset === 1){
 		let startingScore = "0";
 		
-		for (let i = 1; i < dirLength - 1; i++) {
+		for (let i = 1; i <= dirLength; i++) {
 			let scoreFileTemp1 = scorePath + i + ".txt";
 			let scoreFileTemp2 = scorePath + i + "D" + ".txt";
 			console.log("Resetting " + scoreFileTemp1);
 			console.log("Resetting " + scoreFileTemp2);
 			fs.writeFileSync(scoreFileTemp1, startingScore);
 			fs.writeFileSync(scoreFileTemp2, startingScore);
+			if(dirLength === i){
+				console.log("All " + dirLength +  " score files reset!");
+			}
 		}
 		playerArray = [];
 		res.redirect("/");
