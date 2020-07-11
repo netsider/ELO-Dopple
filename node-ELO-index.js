@@ -32,7 +32,7 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let playerIsLocked = 0;
-let fuckYou = [];
+let replaceArray = [];
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -214,10 +214,14 @@ app.post("/resetScores", function(req, res){
 	
 	if(Number(req.body.lockPlayer) === 1){
 		//playerArray[0]['winner'] = "1";
-		fuckYou[0] = 1;
+		replaceArray[0] = req.body.lockPlayer;
+		replaceArray[1] = req.body.playerOneHidden;
 	}else{
-		fuckYou[0] = 0;
+		replaceArray[0] = 0;
+		replaceArray[1] = 0;
 	}
+	
+	console.log("replaceArray:" + replaceArray);
 	
 	
 	let reset = Number(req.body.reset);
