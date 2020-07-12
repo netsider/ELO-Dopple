@@ -69,9 +69,9 @@ app.get("/", function(req, res){
 			console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
-			newPlayers[3] = true;
+			newPlayers[3] = "true";
 		}else{
-			newPlayers[3] = false;
+			newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
 	}else{
@@ -108,8 +108,8 @@ app.get("/", function(req, res){
 	// Calculate original aspect ratio of pictures
 	let dimensions1 = sizeOf(playerOneImage);
 	let dimensions2 = sizeOf(playerTwoImage);
-	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height, 4);
-	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height, 4);
+	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height);
+	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height);
 	
 	let playerOneName = "Namefile Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -255,7 +255,7 @@ app.post("/resetScores", function(req, res){
 			console.log("Resetting " + scoreFileTemp2);
 			fs.writeFileSync(scoreFileTemp1, startingScore);
 			fs.writeFileSync(scoreFileTemp2, startingScore);
-			if(dirLength === i){
+			if(dirLength == i){
 				console.log("All " + dirLength +  " score files reset!");
 			}
 		}
@@ -268,8 +268,8 @@ app.post("/resetScores", function(req, res){
 	}
 })
 
-function getAspectRatio(w, h, decimalPlaces){
-	let ar = Number((h / w).toString().substr(0, decimalPlaces));
+function getAspectRatio(w, h){
+	let ar = Number((h / w).toString().substr(0, 4));
 	return ar;
 };
 	
