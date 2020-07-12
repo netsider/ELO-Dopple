@@ -33,7 +33,7 @@ let playerArray = [];
 let newPlayers = [];
 let playerIsLocked = 0;
 let resetArray = [];
-
+resetArray[3] = false;
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
 }else{
@@ -42,7 +42,9 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
+	console.log("playerArray[0]: " + playerArray[0]);
+	console.log("playerArray: " + playerArray);
+	
 	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
 	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
@@ -74,7 +76,10 @@ app.get("/", function(req, res){
 			console.log("playerArray undefined!");
 	}
 	
+	
 	if(playerArray[0] != undefined && playerIsLocked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
+		//playerArray[0].winner
+		console.log("Player not locked!");
 		//console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
 		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
@@ -211,34 +216,36 @@ app.post("/node-dopple-main", function(req, res){
 });
 
 app.post("/resetScores", function(req, res){
-	console.log("Resetting Scores...");
-	
-	
-	
-	console.log("----playerArray----");
-	logArray(playerArray);
-	console.log(playerArray);
-	
-	console.log("----req.body----");
-	logArray(req.body);
-	
-	if(Number(req.body.lockPlayer) === 1){
-		//playerArray[0]['winner'] = "1";
-		resetArray[0] = req.body.lockPlayer;
-		resetArray[1] = req.body.playerOneHidden;
-	}else{
-		resetArray[0] = 0;
-		resetArray[1] = 0;
-	}
-	
-	console.log("resetArray:" + resetArray);
-	
-	
-	let reset = Number(req.body.reset);
-	
-	if(reset === 1){
-		let startingScore = "0";
+		console.log("Resetting Scores...");
 		
+		//console.log("----playerArray----");
+		//logArray(playerArray);
+		//console.log(playerArray);
+		
+		console.log("----req.body----");
+		logArray(req.body);
+		
+		let isLocked = Number(req.body.lockPlayer);
+		let reset = Number(req.body.reset);
+		let playerOneOnReset = req.body.playerOneHidden;
+	
+		if(reset === 1){
+			
+			resetArray[3] = true;
+			
+			if(isLocked === 1){
+				//playerArray[0]['winner'] = "1";
+				resetArray[0] = isLocked;
+				resetArray[1] = playerOneOnReset;
+				//playerArray[0].lockPlayer = 1;
+			}else{
+				resetArray[0] = 0;
+				resetArray[1] = 0;
+				//playerArray[0].lockPlayer = 0;
+			}
+			
+			
+		let startingScore = "0";
 		for (let i = 1; i <= dirLength; i++) {
 			let scoreFileTemp1 = scorePath + i + ".txt";
 			let scoreFileTemp2 = scorePath + i + "D.txt";
@@ -250,6 +257,9 @@ app.post("/resetScores", function(req, res){
 				console.log("All " + dirLength +  " score files reset!");
 			}
 		}
+	
+		console.log("----resetArray----");
+		console.log(resetArray);
 		
 		console.log("Redirecting to / ...");
 		res.redirect("/");
