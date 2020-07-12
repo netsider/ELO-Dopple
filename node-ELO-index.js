@@ -68,7 +68,7 @@ app.get("/", function(req, res){
 	}
 	
 	
-	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
+	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without checkbox
 		console.log("resetArray: " + resetArray);
 		if(resetArray[3] == "false"){
 			newPlayers[3] = "false";
