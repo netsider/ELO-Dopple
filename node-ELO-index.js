@@ -36,6 +36,8 @@ let resetArray = [];
 resetArray[0] = 0;
 resetArray[1] = 0;
 resetArray[2] = false;
+newPlayers[3] = false;
+
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
 }else{
@@ -44,46 +46,44 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	console.log("playerArray[0]: " + playerArray[0]);
-	console.log("playerArray: " + playerArray);
-	
-	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
-	//console.log("playerArray.lockPlayer: " + playerArray.lockPlayer);
+	//console.log("playerArray[0]: " + playerArray[0]);
+	//console.log("playerArray: " + playerArray);
+	console.log("newPlayers[3]: " + newPlayers[3]);
+
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
-		// do nothing
+		console.log("resetArray: " + resetArray);
 	}else{
 		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
+			console.log("Checkbox checked");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 		}
 	}
+	console.log("newPlayers[3]: " + newPlayers[3]);
 	
 	if(playerArray[0] != undefined){
-		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
-		console.log("playerArray.lockPlayer: " + playerArray[0].lockPlayer);
 		if(playerArray[0].lockPlayer === 1){
+			console.log("playerArray[0].lockPlayer = 1");
 			console.log("Players Locked!");
-			console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
+			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 		}else{
-			newPlayers[3] = "false";
+			//newPlayers[3] = "false"; // PROBLEM: Needs to be removed, but if taken out, cannot uncheck box
 			playerIsLocked = 0;
 		}
 	}else{
 			console.log("playerArray undefined!");
 	}
 	
+	console.log("newPlayers[3]: " + newPlayers[3]); // false
 	
-	if(playerArray[0] != undefined && playerIsLocked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
-		//playerArray[0].winner
+	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false"){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		console.log("Player not locked!");
-		//console.log("playerArray[0].winner: " + playerArray[0].winner.charAt(0));
-		//console.log("playerArray[0].loser: " + playerArray[0].loser.charAt(0));
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
@@ -93,7 +93,7 @@ app.get("/", function(req, res){
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
-	
+	console.log("newPlayers[3]: " + newPlayers[3]);
 	let playerTwo = playerOne + "D";
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
@@ -227,9 +227,10 @@ app.post("/resetScores", function(req, res){
 		console.log("----req.body----");
 		logArray(req.body);
 		
+		
 		let isLocked = Number(req.body.lockPlayer);
 		let reset = Number(req.body.reset);
-		let playerOneOnReset = req.body.playerOneHidden.toString();
+		let playerOneOnReset = req.body.playerOneHidden;
 	
 		if(reset === 1){
 			
@@ -239,10 +240,12 @@ app.post("/resetScores", function(req, res){
 				//playerArray[0]['winner'] = "1";
 				resetArray[0] = isLocked;
 				resetArray[1] = playerOneOnReset;
+				newPlayers[3] = true;
 				//playerArray[0].lockPlayer = 1;
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
+				//newPlayers[3] = false;
 				//playerArray[0].lockPlayer = 0;
 			}
 			
