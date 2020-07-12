@@ -71,6 +71,9 @@ app.get("/", function(req, res){
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
 		console.log("resetArray: " + resetArray);
+		if(resetArray[3] == "false"){
+			newPlayers[3] = "false";
+		}
 	}else{
 		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
 			console.log("Checkbox checked and reset pressed");
@@ -249,6 +252,7 @@ app.post("/resetScores", function(req, res){
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
+				playerArray[0].lockPlayer = 0;
 				newPlayers[3] = false;
 				//playerArray[0].lockPlayer = 0;
 			}
