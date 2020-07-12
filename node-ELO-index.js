@@ -33,7 +33,9 @@ let playerArray = [];
 let newPlayers = [];
 let playerIsLocked = 0;
 let resetArray = [];
-resetArray[3] = false;
+resetArray[0] = 0;
+resetArray[1] = 0;
+resetArray[2] = false;
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
 }else{
@@ -67,9 +69,9 @@ app.get("/", function(req, res){
 			console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
-			newPlayers[3] = "true";
+			newPlayers[3] = true;
 		}else{
-			newPlayers[3] = "false";
+			newPlayers[3] = false;
 			playerIsLocked = 0;
 		}
 	}else{
@@ -227,11 +229,11 @@ app.post("/resetScores", function(req, res){
 		
 		let isLocked = Number(req.body.lockPlayer);
 		let reset = Number(req.body.reset);
-		let playerOneOnReset = req.body.playerOneHidden;
+		let playerOneOnReset = req.body.playerOneHidden.toString();
 	
 		if(reset === 1){
 			
-			resetArray[3] = true;
+			resetArray[2] = true;
 			
 			if(isLocked === 1){
 				//playerArray[0]['winner'] = "1";
