@@ -159,10 +159,6 @@ app.get("/", function(req, res){
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
-	if(playerArray.length){
-		//console.log("Player Array: " + JSON.stringify(playerArray));
-		//playerArray = [];
-	}	
 })
 
 app.post("/node-dopple-main", function(req, res){
