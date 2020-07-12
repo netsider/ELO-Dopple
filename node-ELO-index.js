@@ -48,22 +48,9 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 	//console.log("playerArray[0]: " + playerArray[0]);
 	//console.log("playerArray: " + playerArray);
-	console.log("newPlayers[3]: " + newPlayers[3]);
+	console.log("newPlayers[3]: " + newPlayers[3]); //false
 
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
-	
-	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
-		console.log("resetArray: " + resetArray);
-	}else{
-		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
-			console.log("Checkbox checked and reset pressed");
-			//playerArray[0].lockPlayer = 0; // This is sent when an answer is provided, so we don't want to right now
-			playerOne = resetArray[1]; // choose locked player
-			playerIsLocked = 1;
-			newPlayers[3] = "true";
-		}
-	}
-	console.log("newPlayers[3]: " + newPlayers[3]);
 	
 	if(playerArray[0] != undefined){
 		if(playerArray[0].lockPlayer === 1){
@@ -80,6 +67,22 @@ app.get("/", function(req, res){
 	}else{
 			console.log("playerArray undefined!");
 	}
+	
+	
+	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without choosing winner/loser
+		console.log("resetArray: " + resetArray);
+	}else{
+		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
+			console.log("Checkbox checked and reset pressed");
+			//playerArray[0].lockPlayer = 0; // This is sent when an answer is provided, so we don't want to right now
+			playerOne = resetArray[1]; // choose locked player
+			playerIsLocked = 1;
+			newPlayers[3] = "true";
+		}
+	}
+	console.log("newPlayers[3]: " + newPlayers[3]); //true
+	
+
 	
 	console.log("newPlayers[3]: " + newPlayers[3]); // false
 	
@@ -246,7 +249,7 @@ app.post("/resetScores", function(req, res){
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
-				//newPlayers[3] = false;
+				newPlayers[3] = false;
 				//playerArray[0].lockPlayer = 0;
 			}
 			
