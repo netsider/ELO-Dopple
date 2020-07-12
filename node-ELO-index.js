@@ -179,6 +179,7 @@ app.post("/node-dopple-main", function(req, res){
 	console.log("lockPlayer: " + req.body.lockPlayer);
 	let lockPlayer = Number(req.body.lockPlayer);
 	let name = req.body.playerName;
+	resetArray[0] = 0;
 	//let image = req.body.playerImage;
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
