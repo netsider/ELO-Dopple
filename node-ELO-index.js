@@ -56,7 +56,8 @@ app.get("/", function(req, res){
 		console.log("resetArray: " + resetArray);
 	}else{
 		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
-			console.log("Checkbox checked");
+			console.log("Checkbox checked and reset pressed");
+			//playerArray[0].lockPlayer = 0; // This is sent when an answer is provided, so we don't want to right now
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -73,7 +74,7 @@ app.get("/", function(req, res){
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 		}else{
-			//newPlayers[3] = "false"; // PROBLEM: Needs to be removed, but if taken out, cannot uncheck box
+			newPlayers[3] = "false"; // PROBLEM: Needs to be removed, but if taken out, cannot uncheck box
 			playerIsLocked = 0;
 		}
 	}else{
