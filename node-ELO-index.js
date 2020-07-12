@@ -48,12 +48,11 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 	//console.log("playerArray[0]: " + playerArray[0]);
 	//console.log("playerArray: " + playerArray);
-	console.log("newPlayers[3]: " + newPlayers[3]); //false
 
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
-		if(playerArray[0].lockPlayer === 1){
+		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
 			console.log("playerArray[0].lockPlayer = 1");
 			console.log("Players Locked!");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
@@ -77,17 +76,11 @@ app.get("/", function(req, res){
 	}else{
 		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
 			console.log("Checkbox checked and reset pressed");
-			//playerArray[0].lockPlayer = 0; // This is sent when an answer is provided, so we don't want to right now
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 		}
 	}
-	console.log("newPlayers[3]: " + newPlayers[3]); //true
-	
-
-	
-	console.log("newPlayers[3]: " + newPlayers[3]); // false
 	
 	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false"){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		console.log("Player not locked!");
@@ -140,8 +133,6 @@ app.get("/", function(req, res){
 	
 	let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2); // Two decimal places
 	let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2); // Two decimal places
-	//let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100);
-	//let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100);
 		
 	newPlayers[0] = [];
 	newPlayers[1] = [];
@@ -190,19 +181,13 @@ app.post("/node-dopple-main", function(req, res){
 	
 	let winnerOldScore = Number(fs.readFileSync(winnerScoreFile));
 	let loserOldScore = Number(fs.readFileSync(loserScoreFile));
-	//console.log("Winner Old Score:" + winnerOldScore);
-	//console.log("Loser Old Score:" + loserOldScore);
 
 	let winnerELO = ELO(winnerOldScore, loserOldScore);
 	let loserELO = ELO(loserOldScore, winnerOldScore);
-	//console.log("Winner ELO Rating: " + winnerELO);
-	//console.log("Loser ELO Rating: " + loserELO);
 	
 	// ELO score distribution
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
-	//console.log("Winner New Score: " + winnerNewScore);
-	//console.log("Loser New Score: " + loserNewScore);
 	
 	let winnerNewELO = ELO(winnerNewScore, loserNewScore);
 	let loserNewELO = ELO(loserNewScore, winnerNewScore);
@@ -245,17 +230,14 @@ app.post("/resetScores", function(req, res){
 			resetArray[2] = true;
 			
 			if(isLocked === 1){
-				//playerArray[0]['winner'] = "1";
 				resetArray[0] = isLocked;
 				resetArray[1] = playerOneOnReset;
 				newPlayers[3] = true;
-				//playerArray[0].lockPlayer = 1;
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
 				playerArray[0].lockPlayer = 0;
 				newPlayers[3] = false;
-				//playerArray[0].lockPlayer = 0;
 			}
 			
 			
