@@ -1,4 +1,5 @@
 // Made by Russell Rounds
+// I hate this shit language
 
 // Node Modules
 const http = require("http");
