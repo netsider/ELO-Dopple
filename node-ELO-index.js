@@ -1,5 +1,4 @@
 // Made by Russell Rounds
-// I hate this shit language
 
 // Node Modules
 const http = require("http");
@@ -32,12 +31,12 @@ const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
-let playerIsLocked = 0;
 let resetArray = [];
 resetArray[0] = 0;
 resetArray[1] = 0;
 resetArray[2] = false;
 newPlayers[3] = false;
+let playerIsLocked = 0;
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -47,27 +46,23 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	//console.log("playerArray[0]: " + playerArray[0]);
-	//console.log("playerArray: " + playerArray);
 
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
-			//console.log("playerArray[0].lockPlayer = 1");
 			console.log("Players Locked!");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
-		}else{
-			newPlayers[3] = "false"; // PROBLEM: Needs to be removed, but if taken out, cannot uncheck box
+		}else{ // If answer button pressed and checkbox NOT checked
+			newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
 	}else{
 			console.log("playerArray undefined!");
 	}
-	
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without checkbox
 		console.log("resetArray: " + resetArray);
