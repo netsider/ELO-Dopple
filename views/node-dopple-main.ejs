@@ -77,9 +77,10 @@ if(rando === 1){ // Randomize pictures
 	<form action="/node-dopple-main" method="POST">
 	<p><button type="submit" name="playerName" value="<%= playerTwoIsWinnerArray %>">I think <%= playerOneName %> is on the left</button></p>
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
-<% }; 
+<% };
 
-if(newPlayers[3] === "true" && newPlayers[4] == 1){
+if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
+//if(newPlayers[3] === "true" && newPlayers[4] == 1){
 %>
 					<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
 <% }else{ %>
@@ -91,7 +92,7 @@ if(newPlayers[3] === "true" && newPlayers[4] == 1){
 </form>
 
 <%
-	if (Array.isArray(playerArray) && playerArray.length){ 
+	if (Array.isArray(playerArray) && playerArray.length && newPlayers[5] === false){ 
 		//console.log("Array NOT empty!");
 		playerArray.forEach(function(currentArray){ %>
 				<div id="scoreBoard">
@@ -112,7 +113,6 @@ if(newPlayers[3] === "true" && newPlayers[4] == 1){
 					<p>You were asked to choose: <%= currentArray.loserName %></p>
 				</div>
 		<% } %>
-				
 					<!-- <p>Winner: <%= currentArray.winner %></p> -->
 					<!-- <p>Loser: <%= currentArray.loser %></p> -->
 					<!-- <p>Winner Name: <%= currentArray.winnerName %></p> -->
@@ -125,6 +125,7 @@ if(newPlayers[3] === "true" && newPlayers[4] == 1){
 					<p><%= currentArray.winnerName %> ELO (new): <%= (currentArray.winnerNewELO * 100).toString().substr(0,5) %>%</p>
 					<p><%= currentArray.loserName %> ELO (old): <%= (currentArray.loserELO * 100).toString().substr(0,5) %>%</p>
 					<p><%= currentArray.loserName %> ELO (new): <%= (currentArray.loserNewELO * 100).toString().substr(0,5) %>%</p>
+					<p>lockPlayer: <%= currentArray.lockPlayer %></p>
 			</div>
 	<%});
 	}else{

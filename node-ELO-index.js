@@ -50,8 +50,10 @@ app.get("/", function(req, res){
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
+		//console.log("playerArray[0] != undefined");
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
 			//console.log("Players Locked!");
+			console.log("playerArray[0].lockPlayer === 1");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -65,6 +67,7 @@ app.get("/", function(req, res){
 	}
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without checkbox
+		//console.log("Reset pressed without checkbox");
 		//console.log("resetArray: " + resetArray);
 		if(resetArray[3] == "false"){
 			newPlayers[3] = "false";
@@ -78,7 +81,7 @@ app.get("/", function(req, res){
 		}
 	}
 	
-	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false"){ // If winner/loser chosen -- to prevent showing same two people consequtively
+	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && playerArray[0].locked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		//console.log("Player not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
@@ -144,7 +147,8 @@ app.get("/", function(req, res){
 	newPlayers[1][4] = aspectRatioP2;
 	
 	newPlayers[4] = playerIsLocked;
-
+	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
+	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
 	//console.log("Player Two Score: " + playerTwoScore);
@@ -160,11 +164,15 @@ app.get("/", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-	console.log("lockPlayer: " + req.body.lockPlayer);
+	//console.log("lockPlayer: " + req.body.lockPlayer);
+	
 	let lockPlayer = Number(req.body.lockPlayer);
 	let name = req.body.playerName;
-	resetArray[0] = 0;
 	//let image = req.body.playerImage;
+	
+	resetArray[0] = 0;
+	resetArray[2] = false; // reset wasn't pressed
+	
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
 	let loser = unserialized[1].toString();
@@ -210,8 +218,8 @@ app.post("/resetScores", function(req, res){
 		//logArray(playerArray);
 		//console.log(playerArray);
 		
-		console.log("----req.body----");
-		logArray(req.body);
+		//console.log("----req.body----");
+		//logArray(req.body);
 		
 		
 		let isLocked = Number(req.body.lockPlayer);
@@ -223,14 +231,15 @@ app.post("/resetScores", function(req, res){
 			resetArray[2] = true;
 			
 			if(isLocked === 1){
-				resetArray[0] = isLocked;
-				resetArray[1] = playerOneOnReset;
-				newPlayers[3] = true; // locked
+				resetArray[0] = 1; // indicates if locked (a double check)
+				resetArray[1] = playerOneOnReset; //indicates last player
+				newPlayers[3] = true; // also sets this array as "locked"
+				playerArray[0].lockPlayer = 1; // Take out if problems.
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
-				playerArray[0].lockPlayer = 0;
 				newPlayers[3] = false; // not locked
+				playerArray[0].lockPlayer = 0;
 			}
 			
 			
@@ -243,15 +252,17 @@ app.post("/resetScores", function(req, res){
 			fs.writeFileSync(scoreFileTemp1, startingScore);
 			fs.writeFileSync(scoreFileTemp2, startingScore);
 			if(dirLength == i){
-				console.log("All " + dirLength +  " score files reset!");
+				//console.log("All " + dirLength +  " score files reset!");
 			}
 		}
 	
-		console.log("----resetArray----");
-		console.log(resetArray);
+		//console.log("----resetArray----");
+		//console.log(resetArray);
 		
-		console.log("Redirecting to / ...");
+		//console.log("Redirecting to / ...");
 		res.redirect("/");
+	}else{
+		resetArray[2] = false;
 	}
 })
 
