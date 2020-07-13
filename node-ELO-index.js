@@ -10,10 +10,10 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const sizeOf = require("image-size");
 
+console.log("Starting...");
+
 const app = express();
 const port = 3000;
-
-console.log("Starting...");
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -41,7 +41,7 @@ let playerIsLocked = 0;
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
 }else{
-		console.log("Number of players in directory not even number!");
+	//console.log("Number of players in directory not even number!");
 }
 
 app.get("/", function(req, res){
@@ -51,7 +51,7 @@ app.get("/", function(req, res){
 	
 	if(playerArray[0] != undefined){
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
-			console.log("Players Locked!");
+			//console.log("Players Locked!");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -61,17 +61,17 @@ app.get("/", function(req, res){
 			playerIsLocked = 0;
 		}
 	}else{
-			console.log("playerArray undefined!");
+			//console.log("playerArray undefined!");
 	}
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without checkbox
-		console.log("resetArray: " + resetArray);
+		//console.log("resetArray: " + resetArray);
 		if(resetArray[3] == "false"){
 			newPlayers[3] = "false";
 		}
 	}else{
 		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
-			console.log("Checkbox checked and reset pressed");
+			//console.log("Checkbox checked and reset pressed");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -79,18 +79,15 @@ app.get("/", function(req, res){
 	}
 	
 	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false"){ // If winner/loser chosen -- to prevent showing same two people consequtively
-		console.log("Player not locked!");
+		//console.log("Player not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
-			console.log("New players are the same as old players!  Choosing different...");
+			//console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
-				//console.log("New players are STILL the same as old players!  Choosing different...");
 				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
-	
-	
 	
 	let playerTwo = playerOne + "D";
 	
@@ -228,12 +225,12 @@ app.post("/resetScores", function(req, res){
 			if(isLocked === 1){
 				resetArray[0] = isLocked;
 				resetArray[1] = playerOneOnReset;
-				newPlayers[3] = true;
+				newPlayers[3] = true; // locked
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
 				playerArray[0].lockPlayer = 0;
-				newPlayers[3] = false;
+				newPlayers[3] = false; // not locked
 			}
 			
 			
