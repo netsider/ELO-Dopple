@@ -54,7 +54,7 @@ app.get("/", function(req, res){
 	
 	if(playerArray[0] != undefined){
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
-			console.log("playerArray[0].lockPlayer = 1");
+			//console.log("playerArray[0].lockPlayer = 1");
 			console.log("Players Locked!");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
@@ -94,7 +94,9 @@ app.get("/", function(req, res){
 			//console.log("Successfully chose different player than old player!");
 		}
 	}
-	console.log("newPlayers[3]: " + newPlayers[3]);
+	
+	
+	
 	let playerTwo = playerOne + "D";
 	
 	let playerOneNamePath = namePath + playerOne + ".txt";
@@ -148,6 +150,8 @@ app.get("/", function(req, res){
 	newPlayers[1][2] = playerTwoScore;
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
+	
+	newPlayers[4] = playerIsLocked;
 
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
