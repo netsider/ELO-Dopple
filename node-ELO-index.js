@@ -32,11 +32,13 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let resetArray = [];
-resetArray[0] = 0;
-resetArray[1] = 0;
-resetArray[2] = false;
-newPlayers[3] = false;
+resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
+resetArray[1] = 0; // the player present when reset pressed
+resetArray[2] = false; // if reset pressed
+newPlayers[3] = false; // player lock temp variable
 let playerIsLocked = 0;
+// playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
+//playerArray[0] = {};
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -46,14 +48,16 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-
+	
+	
+	//playerArray[0].lockPlayer = 0;
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){
 		//console.log("playerArray[0] != undefined");
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
 			//console.log("Players Locked!");
-			console.log("playerArray[0].lockPlayer === 1");
+			//console.log("playerArray[0].lockPlayer === 1");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -134,6 +138,7 @@ app.get("/", function(req, res){
 		
 	newPlayers[0] = [];
 	newPlayers[1] = [];
+	
 	newPlayers[0][0] = playerOne;
 	newPlayers[0][1] = playerOneName;
 	newPlayers[0][2] = playerOneScore;
@@ -146,7 +151,7 @@ app.get("/", function(req, res){
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
 	
-	newPlayers[4] = playerIsLocked;
+	newPlayers[4] = playerIsLocked; // if player locked
 	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
 	
 	// Debugging:
@@ -156,7 +161,7 @@ app.get("/", function(req, res){
 	//console.log(playerTwoELO);
 	//console.log("Aspect Ratio P1: " + aspectRatioP1);
 	//console.log("Aspect Ratio P2: " + aspectRatioP2);
-	logArray(newPlayers);
+	//logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
@@ -221,7 +226,8 @@ app.post("/resetScores", function(req, res){
 		//console.log("----req.body----");
 		//logArray(req.body);
 		
-		
+		playerArray[0].lockPlayer = 0;
+		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
 		let isLocked = Number(req.body.lockPlayer);
 		let reset = Number(req.body.reset);
 		let playerOneOnReset = req.body.playerOneHidden;
@@ -229,6 +235,7 @@ app.post("/resetScores", function(req, res){
 		if(reset === 1){
 			
 			resetArray[2] = true;
+			//playerArray[0].lockPlayer = 0;
 			
 			if(isLocked === 1){
 				resetArray[0] = 1; // indicates if locked (a double check)
