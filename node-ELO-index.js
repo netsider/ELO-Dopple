@@ -66,9 +66,9 @@ app.get("/", function(req, res){
 			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
-			newPlayers[3] = "true";
+			//newPlayers[3] = "true";
 		}else{ // Answer button pressed, checkbox NOT checked
-			newPlayers[3] = "false";
+			//newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
 		
@@ -78,7 +78,7 @@ app.get("/", function(req, res){
 	
 	if(newPlayers[7] === false && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
 		console.log("Reset pressed, checkbox NOT checked");
-		newPlayers[3] = "false";
+		//newPlayers[3] = "false";
 		playerIsLocked = 0;
 	}
 	
@@ -86,7 +86,7 @@ app.get("/", function(req, res){
 			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = newPlayers[6][1]; // choose locked player
 			playerIsLocked = 1;
-			newPlayers[3] = "true";
+			//newPlayers[3] = "true";
 	}
 		
 	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){ //7
