@@ -1,4 +1,7 @@
-<br/><strong>Known Bugs to Fix:</strong><br/>
+<br/><strong>Known Bugs to Fix (NodeJS version):</strong><br/>
+• <strike>Cleanup checkbox and reset button logic</strike>.<br>
+
+<br/><strong>Known Bugs to Fix (non-NodeJS versions):</strong><br/>
 • <strike>Find out why/when D.txt is being created by error, or prevent it from being created as a temp. fix.</strike> <strong>(DONE - 8/20/2019)</strong><br/>
 • <strike>Find out why array is coming through as 10 elements instead of just two (with each letter per numbered array).</strike><strong>(DONE - 8/21/2019)<br/>
 • <strike>Although understood/solved, keep looking for better solution to POST/Array error (found in Bugs folder), so any format/form of players will work, and not just single/double digit players.</strike> (DONE - 8/22/2019)<br/>
@@ -36,7 +39,7 @@
 • Mobile version, using front-end framework.<br/>
 • Scalable version.<br/>
 • Database-backed version.<br/>
-• NodeJS version, to see how this would work differently.<br />
+• <strike>NodeJS version, to see how this would work differently.<br /></strike>
 • Python version, to see how this would work differently.<br />
 • Explore additional versions (serverless?). <br />
 • <strike>Possible version that uses FIDE's implementation of ELO</strike><strong> (DONE - 8/7/2019).</strong>.<br />
