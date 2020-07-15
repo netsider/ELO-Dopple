@@ -36,7 +36,10 @@ resetArray[0] = 0; // whether reset button has checkbox checked when pressed or 
 resetArray[1] = 0; // the player present when reset pressed
 resetArray[2] = false; // if reset pressed
 newPlayers[3] = false; // player lock temp variable
+
 let playerIsLocked = 0;
+newPlayers[6] = []; // last player array
+newPlayers[7] = false;  // if checkbox is checked
 // playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
 //playerArray[0] = {};
 
@@ -51,16 +54,19 @@ if(isEven(dirLength)){
 // playerArray[0].lockPlayer
 // playerIsLocked 
 // resetArray[0]
-// resetArray[3]
+
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
+	
+	logArray(newPlayers);
+	
 	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
 	
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){ // Answer button pressed
-		if(playerArray[0].lockPlayer === 1){ // Answer button pressed, checkbox CHECKED
+		if(newPlayers[7] === true){ // Answer button pressed, checkbox CHECKED
 			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -73,14 +79,14 @@ app.get("/", function(req, res){
 			//console.log("playerArray undefined!");
 	}
 	
-	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed, checkbox NOT checked.
-		//console.log("Reset pressed, checkbox NOT checked");
-		if(resetArray[3] == "false"){
-			newPlayers[3] = "false";
-		}
+	if(resetArray[7] != true && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
+		console.log("Reset pressed, checkbox NOT checked");
+		//if(resetArray[3] == "false"){
+		newPlayers[3] = "false";
+		//}
 	}else{
-		if(resetArray[0] == 1){ // Reset pressed, checkbox checked.
-			//console.log("Reset pressed, checkbox CHECKED.");
+		if(newPlayers[7] === true){
+			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -156,9 +162,9 @@ app.get("/", function(req, res){
 	newPlayers[4] = playerIsLocked; // if player locked
 	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
 	
-	newPlayers[6] = []; // last player
-	newPlayers[6][0] = 0;
-	newPlayers[6][1] = 0;
+//	newPlayers[6] = []; // last player
+
+	
 	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
@@ -181,7 +187,6 @@ app.post("/node-dopple-main", function(req, res){
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	
-	resetArray[0] = 0;
 	resetArray[2] = false; // reset wasn't pressed
 	
 	let unserialized = JSON.parse(name);
@@ -225,6 +230,8 @@ app.post("/node-dopple-main", function(req, res){
 app.post("/resetScores", function(req, res){
 		console.log("Resetting Scores...");
 		
+		//playerArray[0] = []; Need to add this to prevent error on first reset, but then creates problems.
+		
 		//console.log("----playerArray----");
 		//logArray(playerArray);
 		//console.log(playerArray);
@@ -246,14 +253,18 @@ app.post("/resetScores", function(req, res){
 			if(Number(req.body.lockPlayer) === 1){
 				resetArray[0] = 1; // locked
 				resetArray[1] = playerOneOnReset; // last player
-				newPlayers[6][1] = playerOneOnReset;
-				newPlayers[3] = true; // also locked
-				playerArray[0].lockPlayer = 1; // Take out if problems.
+				
+				newPlayers[6][1] = playerOneOnReset; // last player
+				newPlayers[6][2] = playerOneOnReset + "D";
+				newPlayers[7] = true; // Checkbox checked
+				//newPlayers[3] = true; // also locked
+				//playerArray[0].lockPlayer = 1; // Take out if problems.
 			}else{
 				resetArray[0] = 0;
 				resetArray[1] = 0;
-				newPlayers[3] = false; // not locked
-				playerArray[0].lockPlayer = 0;
+				newPlayers[7] = false; // Checkbox NOT checked
+				//newPlayers[3] = false; // not locked
+				//playerArray[0].lockPlayer = 0;
 			}
 			
 			
