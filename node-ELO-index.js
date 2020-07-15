@@ -32,7 +32,6 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let resetArray = [];
-//resetArray[1] = 0; // last player present when reset pressed
 resetArray[2] = false; // if reset pressed
 newPlayers[6] = []; // last player array
 newPlayers[7] = false;  // Variable which the checkbox sets to true when checked.
@@ -242,7 +241,6 @@ app.post("/resetScores", function(req, res){
 			}else{
 				newPlayers[7] = false; // Checkbox NOT checked
 			}
-			
 			
 			let startingScore = "0";
 			for (let i = 1; i <= dirLength; i++) {
