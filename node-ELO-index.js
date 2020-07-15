@@ -76,7 +76,7 @@ app.get("/", function(req, res){
 	// End form logic
 	
 	
-	if(playerIsLocked === 1){
+	if(playerIsLocked === 1){ // set player locked.
 		//console.log("Players locked!");
 		playerArray[0].lockPlayer = 1; // Why doesn't this work?
 		//newPlayers[8] = true;
@@ -86,12 +86,9 @@ app.get("/", function(req, res){
 		//newPlayers[8] = false;
 		playerArray[0].lockPlayer = 0; // Why doesn't this work?
 		playerOne = getRandomIntInclusive(1, maxPlayers);
-		
-		//if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // If players not locked, make sure they're not the same.
-
 	}
 	
-	if(playerIsLocked === 0){
+	if(playerIsLocked === 0){ // If not locked, make sure not same as last round.
 		if(typeof playerArray[0].winner === "undefined"){
 			//console.log(typeof playerArray[0].winner);
 			playerArray[0].winner = "1";
