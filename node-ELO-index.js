@@ -32,7 +32,7 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let resetArray = [];
-resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
+//resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
 resetArray[1] = 0; // the player present when reset pressed
 resetArray[2] = false; // if reset pressed
 newPlayers[3] = false; // player lock temp variable
@@ -48,12 +48,6 @@ if(isEven(dirLength)){
 }else{
 	//console.log("Number of players in directory not even number!");
 }
-
-// Determines if players locked
-// newPlayers[3]
-// playerArray[0].lockPlayer
-// playerIsLocked 
-// resetArray[0]
 
 
 app.get("/", function(req, res){
@@ -90,7 +84,7 @@ app.get("/", function(req, res){
 	
 	if(newPlayers[7] === true && resetArray[2] === true){ // Reset pressed, checkbox CHECKED
 			console.log("Reset pressed, checkbox CHECKED.");
-			playerOne = resetArray[1]; // choose locked player
+			playerOne = newPlayers[6][1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 	}
