@@ -76,8 +76,6 @@ app.get("/", function(req, res){
 	// End form logic
 	
 	
-
-	
 	if(playerIsLocked === 1){
 		//console.log("Players locked!");
 		playerArray[0].lockPlayer = 1; // Why doesn't this work?
@@ -93,26 +91,20 @@ app.get("/", function(req, res){
 
 	}
 	
-	
+	if(playerIsLocked === 0){
 		if(typeof playerArray[0].winner === "undefined"){
 			//console.log(typeof playerArray[0].winner);
 			playerArray[0].winner = "1";
 			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
-		}else{
-			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 		}
-		//console.log("playerOne.toString(): " + playerOne.toString());
-		
-		
-		if(playerIsLocked == 0){ 
-			if(playerOne.toString() == playerArray[0].winner.charAt(0)){ 
-				console.log("New players are the same as old players!  Choosing different...");
-				while(playerOne.toString() == playerArray[0].winner.charAt(0)){
-					playerOne = getRandomIntInclusive(1, maxPlayers);
-				}
-			//console.log("Successfully chose two different players!");
+		if(playerOne.toString() === playerArray[0].winner.charAt(0)){ 
+			console.log("New players are the same as old players!  Choosing different...");
+			while(playerOne.toString() === playerArray[0].winner.charAt(0)){
+				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
+		//console.log("Successfully chose two different players!");
 		}
+	}
 	
 	let playerTwo = playerOne + "D";
 	
