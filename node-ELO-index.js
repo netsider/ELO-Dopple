@@ -34,7 +34,7 @@ let newPlayers = [];
 let resetArray = [];
 resetArray[1] = 0; // the player present when reset pressed
 resetArray[2] = false; // if reset pressed
-newPlayers[3] = false; // player lock temp variable
+//newPlayers[3] = false; // player lock temp variable
 let playerIsLocked = 0;
 newPlayers[6] = []; // last player array
 newPlayers[7] = false;  // if checkbox is checked
@@ -179,7 +179,7 @@ app.post("/node-dopple-main", function(req, res){
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	
-	if(Number(req.body.lockPlayer) == 1){
+	if(Number(req.body.lockPlayer) === 1){
 		newPlayers[7] = true;
 	}else{
 		newPlayers[7] = false;
