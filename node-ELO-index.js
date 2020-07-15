@@ -165,13 +165,13 @@ app.get("/", function(req, res){
 	
 	//Debugging:
 	//logArray(newPlayers);
-    	
+    	console.log("FUCK STUPID JAVASCRIPT");
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
 })
 
 app.post("/node-dopple-main", function(req, res){
-	//console.log("Serving /node-dopple-main (post) ..");
+	console.log("Serving /node-dopple-main (post) ..");
 	
 	//console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	let lockPlayer = Number(req.body.lockPlayer);
