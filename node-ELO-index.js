@@ -97,28 +97,28 @@ app.get("/", function(req, res){
 	
 		if(playerArray[0] == undefined){
 			//playerArray[0] = [];
-			console.log("playerArray[0] == undefined!!!!!!!");
+			console.log("playerArray[0] == undefined!!!!!!! 1");
 		}
 	
-		if(playerIsLocked === 1){
+		if(playerIsLocked === 1){ // Will it ever be undefined if the player isn't locked, since they need to submit it to lock it?????
 			console.log("Players locked!");
 			//newPlayers[7] = true;  // Should I not change newPlayers[7] right before page load?
 			if(playerArray[0] != undefined){
 				playerArray[0].lockPlayer = 1;
 				playerOne = playerArray[0].winner.charAt(0);
 			}else{
-				console.log("playerArray[0] == undefined!!!!!!!");
+				console.log("playerArray[0] == undefined!!!!!!! 2");
 			}
 		}else{
 			 if(playerArray[0] != undefined){
 				playerArray[0].lockPlayer = 0;
 			}else{
-				console.log("playerArray[0] == undefined!!!!!!!");	
+				console.log("playerArray[0] == undefined!!!!!!! 3");	
 			}
 			playerOne = getRandomIntInclusive(1, maxPlayers);
 			//newPlayers[7] = false;
 		}
-		// Will it ever be undefined if the player isn't locked, since they need to submit it to lock it?????
+		
 	
 	let playerTwo = playerOne + "D";
 	
