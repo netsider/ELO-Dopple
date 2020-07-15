@@ -95,7 +95,7 @@ app.get("/", function(req, res){
 	
 	
 		if(typeof playerArray[0].winner === "undefined"){
-			console.log(typeof playerArray[0].winner);
+			//console.log(typeof playerArray[0].winner);
 			playerArray[0].winner = "1";
 			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 		}else{
