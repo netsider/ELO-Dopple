@@ -67,7 +67,8 @@ app.get("/", function(req, res){
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
 	if(playerArray[0] != undefined){ // Answer button pressed
-		if(newPlayers[7] === true){ // Answer button pressed, checkbox CHECKED
+		
+		if(newPlayers[7] === true && resetArray[2] === false){ // Answer button pressed, checkbox CHECKED
 			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -76,11 +77,12 @@ app.get("/", function(req, res){
 			newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
+		
 	}else{
 			//console.log("playerArray undefined!");
 	}
 	
-	if(resetArray[7] != true && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
+	if(newPlayers[7] === false && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
 		console.log("Reset pressed, checkbox NOT checked");
 		newPlayers[3] = "false";
 		playerIsLocked = 0;
@@ -92,8 +94,9 @@ app.get("/", function(req, res){
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
 	}
-	
-	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && resetArray[7] != true){ // If winner/loser chosen -- to prevent showing same two people consequtively
+		
+	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){ //7
+	//if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && newPlayers[7] != true){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		console.log("Player not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
@@ -159,8 +162,13 @@ app.get("/", function(req, res){
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
 	
-	newPlayers[4] = playerIsLocked; // if player locked
-	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
+	if(playerIsLocked === 1){
+		newPlayers[3] = true;
+	}else{
+		newPlayers[3] = false;
+	}
+	
+	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
 	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
@@ -177,11 +185,19 @@ app.get("/", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-	//console.log("lockPlayer: " + req.body.lockPlayer);
+	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	
 	let lockPlayer = Number(req.body.lockPlayer);
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
+	
+	if(Number(req.body.lockPlayer) == 1){
+		newPlayers[7] = true;
+	}else{
+		newPlayers[7] = false;
+	}
+	
+	resetArray[2] = false;
 	
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
@@ -245,7 +261,7 @@ app.post("/resetScores", function(req, res){
 			//playerArray[0].lockPlayer = 0;
 			
 			if(Number(req.body.lockPlayer) === 1){
-				resetArray[0] = 1; // locked
+				//resetArray[0] = 1; // locked
 				resetArray[1] = playerOneOnReset; // last player
 				
 				newPlayers[6][1] = playerOneOnReset; // last player
@@ -254,7 +270,7 @@ app.post("/resetScores", function(req, res){
 				//newPlayers[3] = true; // also locked
 				//playerArray[0].lockPlayer = 1; // Take out if problems.
 			}else{
-				resetArray[0] = 0;
+				//resetArray[0] = 0;
 				resetArray[1] = 0;
 				newPlayers[7] = false; // Checkbox NOT checked
 				//newPlayers[3] = false; // not locked
