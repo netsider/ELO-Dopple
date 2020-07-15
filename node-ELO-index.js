@@ -92,23 +92,26 @@ app.get("/", function(req, res){
 		//if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // If players not locked, make sure they're not the same.
 
 	}
-		
-		if(typeof playerArray[0] != undefined){
-			console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
+	
+	
+		if(typeof playerArray[0].winner === "undefined"){
+			console.log(typeof playerArray[0].winner);
+			playerArray[0].winner = "1";
+			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
+		}else{
+			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 		}
-		console.log("playerOne.toString(): " + playerOne.toString());
-		if(playerArray[0] != undefined && Array.isArray(playerArray[0]) ){ // If players not locked, make sure they're not the same.
-		if(playerIsLocked === 0){ 
-		//console.log("Players not locked!");
+		//console.log("playerOne.toString(): " + playerOne.toString());
 		
-			if(playerOne == playerArray[0].winner.charAt(0)){ 
+		
+		if(playerIsLocked == 0){ 
+			if(playerOne.toString() == playerArray[0].winner.charAt(0)){ 
 				console.log("New players are the same as old players!  Choosing different...");
-				while(playerOne == playerArray[0].winner.charAt(0)){
+				while(playerOne.toString() == playerArray[0].winner.charAt(0)){
 					playerOne = getRandomIntInclusive(1, maxPlayers);
 				}
 			//console.log("Successfully chose two different players!");
 			}
-		}
 		}
 	
 	let playerTwo = playerOne + "D";
