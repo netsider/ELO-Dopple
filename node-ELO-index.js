@@ -32,11 +32,9 @@ let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
 let resetArray = [];
-//resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
 resetArray[1] = 0; // the player present when reset pressed
 resetArray[2] = false; // if reset pressed
 newPlayers[3] = false; // player lock temp variable
-
 let playerIsLocked = 0;
 newPlayers[6] = []; // last player array
 newPlayers[7] = false;  // if checkbox is checked
@@ -66,9 +64,7 @@ app.get("/", function(req, res){
 			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
-			//newPlayers[3] = "true";
 		}else{ // Answer button pressed, checkbox NOT checked
-			//newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
 		
@@ -78,7 +74,6 @@ app.get("/", function(req, res){
 	
 	if(newPlayers[7] === false && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
 		console.log("Reset pressed, checkbox NOT checked");
-		//newPlayers[3] = "false";
 		playerIsLocked = 0;
 	}
 	
@@ -86,7 +81,6 @@ app.get("/", function(req, res){
 			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = newPlayers[6][1]; // choose locked player
 			playerIsLocked = 1;
-			//newPlayers[3] = "true";
 	}
 		
 	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){ //7
@@ -157,9 +151,9 @@ app.get("/", function(req, res){
 	newPlayers[1][4] = aspectRatioP2;
 	
 	if(playerIsLocked === 1){
-		newPlayers[3] = true;
+		newPlayers[7] = true; // change back to 3 if problems
 	}else{
-		newPlayers[3] = false;
+		newPlayers[7] = false; // change back to 3 if problems
 	}
 	
 	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
