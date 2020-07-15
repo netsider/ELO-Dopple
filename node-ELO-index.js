@@ -31,8 +31,7 @@ const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
 let newPlayers = [];
-let resetArray = [];
-resetArray[2] = false; // if reset pressed
+let resetPressed = false; // if reset pressed
 newPlayers[6] = []; // last player array
 newPlayers[7] = false;  // Variable which the checkbox sets to true when checked.
 // playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
@@ -46,15 +45,21 @@ if(isEven(dirLength)){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
+	//console.log("playerArray: ");
+	//logArray(playerArray[0]);
+	
 	//console.log("newPlayers: ");
 	//logArray(newPlayers);
 	
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	
+	// Begin form handling logic
 	let playerIsLocked = 0;
+	let lockPlayerCheckBox = newPlayers[7];
 	
 	if(playerArray[0] != undefined){ // Answer button pressed
 		
-		if(newPlayers[7] === true && resetArray[2] === false){ // Answer button pressed, checkbox CHECKED
+		if(lockPlayerCheckBox === true && resetPressed === false){ // Answer button pressed, checkbox CHECKED
 			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
@@ -63,49 +68,74 @@ app.get("/", function(req, res){
 		}
 		
 	}else{
-			//console.log("playerArray undefined!");
+		//console.log("playerArray undefined!");
 	}
 	
-	if(newPlayers[7] === false && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
+	if(lockPlayerCheckBox === false && resetPressed === true){ // Reset pressed, checkbox NOT checked.
 		console.log("Reset pressed, checkbox NOT checked.");
 		playerIsLocked = 0;
 	}
 	
-	if(newPlayers[7] === true && resetArray[2] === true){ // Reset pressed, checkbox CHECKED
+	if(lockPlayerCheckBox === true && resetPressed === true){ // Reset pressed, checkbox CHECKED
 			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = newPlayers[6][1]; // choose locked player
 			playerIsLocked = 1;
-			console.log("newPlayers[6][1]: " + newPlayers[6][1]);
-			console.log("playerOne: " + playerOne);
 	}
-		
-	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){
+	// End form logic
+	
+	
+	if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // So two players not chosen in a row
 		console.log("Players not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
 				playerOne = getRandomIntInclusive(1, maxPlayers);
 			}
-			//console.log("Successfully chose different player than old player!");
+			//console.log("Successfully chose two different players!");
 		}
 	}
 	
+		if(playerArray[0] == undefined){
+			//playerArray[0] = [];
+			console.log("playerArray[0] == undefined!!!!!!!");
+		}
+	
+		if(playerIsLocked === 1){
+			console.log("Players locked!");
+			//newPlayers[7] = true;  // Should I not change newPlayers[7] right before page load?
+			if(playerArray[0] != undefined){
+				playerArray[0].lockPlayer = 1;
+				playerOne = playerArray[0].winner.charAt(0);
+			}else{
+				console.log("playerArray[0] == undefined!!!!!!!");
+			}
+		}else{
+			 if(playerArray[0] != undefined){
+				playerArray[0].lockPlayer = 0;
+			}else{
+				console.log("playerArray[0] == undefined!!!!!!!");	
+			}
+			playerOne = getRandomIntInclusive(1, maxPlayers);
+			//newPlayers[7] = false;
+		}
+		// Will it ever be undefined if the player isn't locked, since they need to submit it to lock it?????
+	
 	let playerTwo = playerOne + "D";
 	
-	let playerOneNamePath = namePath + playerOne + ".txt";
-	let playerTwoNamePath = namePath + playerTwo + ".txt";
+	const playerOneNamePath = namePath + playerOne + ".txt";
+	const playerTwoNamePath = namePath + playerTwo + ".txt";
 	
-	let playerOneScorePath = scorePath + playerOne + ".txt";
-	let playerTwoScorePath = scorePath + playerTwo + ".txt";
+	const playerOneScorePath = scorePath + playerOne + ".txt";
+	const playerTwoScorePath = scorePath + playerTwo + ".txt";
 	
-	let playerOneImage = photoPath + playerOne + ".jpg";
-	let playerTwoImage = photoPath + playerTwo + ".jpg";
+	const playerOneImage = photoPath + playerOne + ".jpg";
+	const playerTwoImage = photoPath + playerTwo + ".jpg";
 	
 	// Calculate original aspect ratio of pictures
-	let dimensions1 = sizeOf(playerOneImage);
-	let dimensions2 = sizeOf(playerTwoImage);
-	let aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height);
-	let aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height);
+	const dimensions1 = sizeOf(playerOneImage);
+	const dimensions2 = sizeOf(playerTwoImage);
+	const aspectRatioP1 = getAspectRatio(dimensions1.width, dimensions1.height);
+	const aspectRatioP2 = getAspectRatio(dimensions2.width, dimensions2.height);
 	
 	let playerOneName = "Namefile Not Found";
 	if(fs.existsSync(playerOneNamePath)){
@@ -145,24 +175,11 @@ app.get("/", function(req, res){
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
 
-	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
+	newPlayers[5] = resetPressed; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
+	resetPressed = false; // so it doesn't stay true
 	
-	if(playerIsLocked === 1){
-		//console.log("Players locked!");
-		playerArray[0].lockPlayer = 1;
-		newPlayers[7] = true; // This needs to be changed.
-	}else{
-		newPlayers[7] = false; // This needs to be changed.
-	}
-	
-	// Debugging:
-	//console.log("Player One Score: " + playerOneScore);
-	//console.log("Player Two Score: " + playerTwoScore);
-	//console.log(playerOneELO);
-	//console.log(playerTwoELO);
-	//console.log("Aspect Ratio P1: " + aspectRatioP1);
-	//console.log("Aspect Ratio P2: " + aspectRatioP2);
-	//logArray(newPlayers);
+	Debugging:
+	logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
@@ -183,7 +200,7 @@ app.post("/node-dopple-main", function(req, res){
 		newPlayers[7] = false;
 	}
 	
-	resetArray[2] = false;
+	resetPressed = false;
 	
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
@@ -213,11 +230,11 @@ app.post("/node-dopple-main", function(req, res){
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
 	
-	winnerLoserArray = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO, lockPlayer: lockPlayer};
+	winnerLoserObject = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO, lockPlayer: lockPlayer};
 	
-	console.log(winnerLoserArray);
+	console.log(winnerLoserObject);
 	
-	playerArray[0] = winnerLoserArray; //playerArray.push(winnerLoserArray); 
+	playerArray[0] = winnerLoserObject; //playerArray.push(winnerLoserObject); 
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
@@ -232,9 +249,10 @@ app.post("/resetScores", function(req, res){
 	
 		if(Number(req.body.reset) === 1){
 			
-			resetArray[2] = true;
+			resetPressed = true;
 			
 			if(Number(req.body.lockPlayer) === 1){
+				
 				newPlayers[6][1] = playerOneOnReset; // last player
 				newPlayers[6][2] = playerOneOnReset + "D";
 				newPlayers[7] = true; // Checkbox checked
@@ -258,7 +276,7 @@ app.post("/resetScores", function(req, res){
 		//console.log("Redirecting to / ...");
 		res.redirect("/");
 	}else{
-		resetArray[2] = false;
+		resetPressed = false;
 	}
 })
 
