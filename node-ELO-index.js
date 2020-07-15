@@ -45,12 +45,6 @@ if(isEven(dirLength)){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
-	//console.log("playerArray: ");
-	//logArray(playerArray[0]);
-	
-	//console.log("newPlayers: ");
-	//logArray(newPlayers);
-	
 	let playerOne = 0;
 	
 	// Begin form handling logic
@@ -82,28 +76,36 @@ app.get("/", function(req, res){
 	// End form logic
 	
 	
-	if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // If players not locked, make sure they're not the same.
-		//console.log("Players not locked!");
-		if(playerOne == playerArray[0].winner.charAt(0)){ 
-			//console.log("New players are the same as old players!  Choosing different...");
-			while(playerOne == playerArray[0].winner.charAt(0)){
-				playerOne = getRandomIntInclusive(1, maxPlayers);
-			}
-			//console.log("Successfully chose two different players!");
-		}
-	}
+
 	
 	if(playerIsLocked === 1){
 		//console.log("Players locked!");
 		playerArray[0].lockPlayer = 1; // Why doesn't this work?
-		newPlayers[8] = true;
+		//newPlayers[8] = true;
 		playerOne = newPlayers[6][1];
 	}else{
 		//console.log("Players NOT locked!");
-		newPlayers[8] = false;
+		//newPlayers[8] = false;
+		playerArray[0].lockPlayer = 0; // Why doesn't this work?
 		playerOne = getRandomIntInclusive(1, maxPlayers);
-	}
 		
+		//if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // If players not locked, make sure they're not the same.
+		if(playerArray[0] != undefined && Array.isArray(playerArray[0]) ){ // If players not locked, make sure they're not the same.
+		//if(playerIsLocked === 0){ 
+		//console.log("Players not locked!");
+		console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
+		console.log("playerOne.toString(): " + playerOne.toString());
+		if(playerOne.toString() === playerArray[0].winner.charAt(0)){ 
+			console.log("New players are the same as old players!  Choosing different...");
+			while(playerOne.toString() === playerArray[0].winner.charAt(0)){
+				playerOne = getRandomIntInclusive(1, maxPlayers);
+			}
+			//console.log("Successfully chose two different players!");
+		}
+		}
+	}
+	
+	
 	let playerTwo = playerOne + "D";
 	
 	const playerOneNamePath = namePath + playerOne + ".txt";
@@ -165,6 +167,9 @@ app.get("/", function(req, res){
 	
 	//Debugging:
 	//logArray(newPlayers);
+	
+	console.log(playerArray[0]);
+	//logArray(playerArray[0]);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	

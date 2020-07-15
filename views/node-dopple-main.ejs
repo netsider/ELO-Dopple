@@ -79,10 +79,7 @@ if(rando === 1){ // Randomize pictures
 	<p><button type="submit" name="playerName" value="<%= playerOneIsWinnerArray %>">I think <%= playerOneName %> is on the right</button></p>
 <% };
 
-//if(playerArray[0] != undefined && newPlayers[7] === true){
-//if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[7] === true){ // Working, but narrow to 2 conditions if possible.
-//if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
-if(playerArray[0] != undefined && newPlayers[8] === true){
+if(playerArray[0] != undefined && newPlayers[8] === true || playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
 %>
 					<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
 <% }else{ %>
