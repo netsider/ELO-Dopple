@@ -1,5 +1,6 @@
 <br/><strong>Known Bugs to Fix (NodeJS version):</strong><br/>
-• Change name of app.post("/node-dopple-main", function() so that it doesn't have same name as EJS file
+• Make array  numbers low (current 6 and 7, etc.).<br>
+• Change name of app.post("/node-dopple-main", function() so that it doesn't have same name as EJS file.<br>
 • <strike>Cleanup checkbox and reset button logic</strike>.<br>
 
 <br/><strong>Known Bugs to Fix (non-NodeJS versions):</strong><br/>
