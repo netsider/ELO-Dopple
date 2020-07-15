@@ -95,7 +95,7 @@ app.get("/", function(req, res){
 	
 	if(playerIsLocked === 1){
 		//console.log("Players locked!");
-		//playerArray[0].lockPlayer = 1; // Why doesn't this work?
+		playerArray[0].lockPlayer = 1; // Why doesn't this work?
 		newPlayers[8] = true;
 		playerOne = newPlayers[6][1];
 	}else{
@@ -165,7 +165,7 @@ app.get("/", function(req, res){
 	
 	//Debugging:
 	//logArray(newPlayers);
-    	console.log("FUCK STUPID JAVASCRIPT");
+    	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
 })
