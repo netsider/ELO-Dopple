@@ -30,9 +30,6 @@ const dirLength = fs.readdirSync(namePath).length;
 const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
-//playerArray[0] = {};
-//playerArray[0].lockPlayer = 0;
-//playerArray[0].winner = 0;
 let newPlayers = [];
 let resetArray = [];
 resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
@@ -60,20 +57,15 @@ app.get("/", function(req, res){
 	console.log("Serving / ...");
 	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
 	
-	//playerArray[0].lockPlayer = 0;
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
 	
-	if(playerArray[0] != undefined){
-		//console.log("playerArray[0] != undefined");
-		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
-			console.log("If answer button pressed and checkbox checked");
-			//console.log("Players Locked!");
-			//console.log("playerArray[0].lockPlayer === 1");
-			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
+	if(playerArray[0] != undefined){ // Answer button pressed
+		if(playerArray[0].lockPlayer === 1){ // Answer button pressed, checkbox CHECKED
+			console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerOne = playerArray[0].winner.charAt(0);
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
-		}else{ // If answer button pressed and checkbox NOT checked
+		}else{ // Answer button pressed, checkbox NOT checked
 			newPlayers[3] = "false";
 			playerIsLocked = 0;
 		}
@@ -82,14 +74,13 @@ app.get("/", function(req, res){
 	}
 	
 	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed, checkbox NOT checked.
-		//console.log("Reset pressed without checkbox");
-		//console.log("resetArray: " + resetArray);
+		//console.log("Reset pressed, checkbox NOT checked");
 		if(resetArray[3] == "false"){
 			newPlayers[3] = "false";
 		}
 	}else{
 		if(resetArray[0] == 1){ // Reset pressed, checkbox checked.
-			//console.log("Reset pressed, checkbox checked.");
+			//console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -165,6 +156,10 @@ app.get("/", function(req, res){
 	newPlayers[4] = playerIsLocked; // if player locked
 	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
 	
+	newPlayers[6] = []; // last player
+	newPlayers[6][0] = 0;
+	newPlayers[6][1] = 0;
+	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
 	//console.log("Player Two Score: " + playerTwoScore);
@@ -238,7 +233,7 @@ app.post("/resetScores", function(req, res){
 		//logArray(req.body);
 		
 		//playerArray[0].lockPlayer = 0;
-		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
+		//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
 		//let isLocked = Number(req.body.lockPlayer);
 		//let reset = Number(req.body.reset);
 		let playerOneOnReset = req.body.playerOneHidden;
@@ -249,9 +244,10 @@ app.post("/resetScores", function(req, res){
 			//playerArray[0].lockPlayer = 0;
 			
 			if(Number(req.body.lockPlayer) === 1){
-				resetArray[0] = 1; // indicates if locked (a double check)
-				resetArray[1] = playerOneOnReset; //indicates last player
-				newPlayers[3] = true; // also sets this array as "locked"
+				resetArray[0] = 1; // locked
+				resetArray[1] = playerOneOnReset; // last player
+				newPlayers[6][1] = playerOneOnReset;
+				newPlayers[3] = true; // also locked
 				playerArray[0].lockPlayer = 1; // Take out if problems.
 			}else{
 				resetArray[0] = 0;
