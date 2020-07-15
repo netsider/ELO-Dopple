@@ -35,7 +35,7 @@ let resetArray = [];
 //resetArray[1] = 0; // last player present when reset pressed
 resetArray[2] = false; // if reset pressed
 newPlayers[6] = []; // last player array
-newPlayers[7] = false;  // if checkbox is checked (default - false/not checked)
+newPlayers[7] = false;  // Variable which the checkbox sets to true when checked.
 // playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
 
 if(isEven(dirLength)){
@@ -151,9 +151,9 @@ app.get("/", function(req, res){
 	if(playerIsLocked === 1){
 		//console.log("Players locked!");
 		playerArray[0].lockPlayer = 1;
-		newPlayers[7] = true; // change back to 3 if problems
+		newPlayers[7] = true; // This needs to be changed.
 	}else{
-		newPlayers[7] = false; // change back to 3 if problems
+		newPlayers[7] = false; // This needs to be changed.
 	}
 	
 	// Debugging:
@@ -171,9 +171,10 @@ app.get("/", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	
+	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	let lockPlayer = Number(req.body.lockPlayer);
+	
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	
@@ -209,7 +210,6 @@ app.post("/node-dopple-main", function(req, res){
 	let loserNamePath = namePath + loser + ".txt";
 	let winnerName = fs.readFileSync(winnerNamePath).toString();
 	let loserName = fs.readFileSync(loserNamePath).toString();
-	//console.log("Winer Name: " + winnerName + " Loser Name: " + loserName);
 	
 	fs.writeFileSync(winnerScoreFile, String(winnerNewScore));
 	fs.writeFileSync(loserScoreFile, String(loserNewScore));
@@ -226,53 +226,36 @@ app.post("/node-dopple-main", function(req, res){
 app.post("/resetScores", function(req, res){
 		console.log("Resetting Scores...");
 		
-		//playerArray[0] = []; Need to add this to prevent error on first reset, but then creates problems.
-		
-		//console.log("----playerArray----");
-		//logArray(playerArray);
-		//console.log(playerArray);
-		
 		//console.log("----req.body----");
 		//logArray(req.body);
 		
-		//playerArray[0].lockPlayer = 0;
-		//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
-		//let isLocked = Number(req.body.lockPlayer);
-		//let reset = Number(req.body.reset);
 		let playerOneOnReset = req.body.playerOneHidden;
 	
 		if(Number(req.body.reset) === 1){
 			
 			resetArray[2] = true;
-			//playerArray[0].lockPlayer = 0;
 			
 			if(Number(req.body.lockPlayer) === 1){
-				//resetArray[1] = playerOneOnReset; // last player
-				
 				newPlayers[6][1] = playerOneOnReset; // last player
 				newPlayers[6][2] = playerOneOnReset + "D";
 				newPlayers[7] = true; // Checkbox checked
 			}else{
-				//resetArray[1] = 0;
 				newPlayers[7] = false; // Checkbox NOT checked
 			}
 			
 			
-		let startingScore = "0";
-		for (let i = 1; i <= dirLength; i++) {
-			let scoreFileTemp1 = scorePath + i + ".txt";
-			let scoreFileTemp2 = scorePath + i + "D.txt";
-			console.log("Resetting " + scoreFileTemp1);
-			console.log("Resetting " + scoreFileTemp2);
-			fs.writeFileSync(scoreFileTemp1, startingScore);
-			fs.writeFileSync(scoreFileTemp2, startingScore);
-			if(dirLength == i){
-				//console.log("All " + dirLength +  " score files reset!");
+			let startingScore = "0";
+			for (let i = 1; i <= dirLength; i++) {
+				let scoreFileTemp1 = scorePath + i + ".txt";
+				let scoreFileTemp2 = scorePath + i + "D.txt";
+				console.log("Resetting " + scoreFileTemp1);
+				console.log("Resetting " + scoreFileTemp2);
+				fs.writeFileSync(scoreFileTemp1, startingScore);
+				fs.writeFileSync(scoreFileTemp2, startingScore);
+				if(dirLength == i){
+					//console.log("All " + dirLength +  " score files reset!");
 			}
 		}
-	
-		//console.log("----resetArray----");
-		//console.log(resetArray);
 		
 		//console.log("Redirecting to / ...");
 		res.redirect("/");
