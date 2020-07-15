@@ -49,6 +49,13 @@ if(isEven(dirLength)){
 	//console.log("Number of players in directory not even number!");
 }
 
+// Determines if players locked
+// newPlayers[3]
+// playerArray[0].lockPlayer
+// playerIsLocked 
+// resetArray[0]
+// resetArray[3]
+
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
@@ -59,6 +66,7 @@ app.get("/", function(req, res){
 	if(playerArray[0] != undefined){
 		//console.log("playerArray[0] != undefined");
 		if(playerArray[0].lockPlayer === 1){ // If answer button pressed and checkbox checked
+			console.log("If answer button pressed and checkbox checked");
 			//console.log("Players Locked!");
 			//console.log("playerArray[0].lockPlayer === 1");
 			//console.log(" playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
@@ -73,15 +81,15 @@ app.get("/", function(req, res){
 			//console.log("playerArray undefined!");
 	}
 	
-	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed without checkbox
+	if(resetArray[0] == 0 && resetArray[1] == 0){ // Reset pressed, checkbox NOT checked.
 		//console.log("Reset pressed without checkbox");
 		//console.log("resetArray: " + resetArray);
 		if(resetArray[3] == "false"){
 			newPlayers[3] = "false";
 		}
 	}else{
-		if(resetArray[0] == 1){ // player lock checkbox checked, and reset pressed
-			//console.log("Checkbox checked and reset pressed");
+		if(resetArray[0] == 1){ // Reset pressed, checkbox checked.
+			//console.log("Reset pressed, checkbox checked.");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
@@ -89,7 +97,7 @@ app.get("/", function(req, res){
 	}
 	
 	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && playerArray[0].locked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
-		//console.log("Player not locked!");
+		console.log("Player not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
@@ -229,18 +237,18 @@ app.post("/resetScores", function(req, res){
 		//console.log("----req.body----");
 		//logArray(req.body);
 		
-		playerArray[0].lockPlayer = 0;
+		//playerArray[0].lockPlayer = 0;
 		console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer);
-		let isLocked = Number(req.body.lockPlayer);
-		let reset = Number(req.body.reset);
+		//let isLocked = Number(req.body.lockPlayer);
+		//let reset = Number(req.body.reset);
 		let playerOneOnReset = req.body.playerOneHidden;
 	
-		if(reset === 1){
+		if(Number(req.body.reset) === 1){
 			
 			resetArray[2] = true;
 			//playerArray[0].lockPlayer = 0;
 			
-			if(isLocked === 1){
+			if(Number(req.body.lockPlayer) === 1){
 				resetArray[0] = 1; // indicates if locked (a double check)
 				resetArray[1] = playerOneOnReset; //indicates last player
 				newPlayers[3] = true; // also sets this array as "locked"
