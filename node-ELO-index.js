@@ -30,6 +30,9 @@ const dirLength = fs.readdirSync(namePath).length;
 const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
+//playerArray[0] = {};
+//playerArray[0].lockPlayer = 0;
+//playerArray[0].winner = 0;
 let newPlayers = [];
 let resetArray = [];
 resetArray[0] = 0; // whether reset button has checkbox checked when pressed or not (1 if pressed)
@@ -48,7 +51,7 @@ if(isEven(dirLength)){
 
 app.get("/", function(req, res){
 	console.log("Serving / ...");
-	
+	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
 	
 	//playerArray[0].lockPlayer = 0;
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
