@@ -34,12 +34,9 @@ let newPlayers = [];
 let resetArray = [];
 resetArray[1] = 0; // the player present when reset pressed
 resetArray[2] = false; // if reset pressed
-//newPlayers[3] = false; // player lock temp variable
-let playerIsLocked = 0;
 newPlayers[6] = []; // last player array
-newPlayers[7] = false;  // if checkbox is checked
+newPlayers[7] = false;  // if checkbox is checked (default - false/not checked)
 // playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
-//playerArray[0] = {};
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -47,16 +44,14 @@ if(isEven(dirLength)){
 	//console.log("Number of players in directory not even number!");
 }
 
-
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
-	console.log("newPlayers: ");
-	logArray(newPlayers);
-	
-	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
+	//console.log("newPlayers: ");
+	//logArray(newPlayers);
 	
 	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	let playerIsLocked = 0;
 	
 	if(playerArray[0] != undefined){ // Answer button pressed
 		
@@ -73,7 +68,7 @@ app.get("/", function(req, res){
 	}
 	
 	if(newPlayers[7] === false && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
-		console.log("Reset pressed, checkbox NOT checked");
+		console.log("Reset pressed, checkbox NOT checked.");
 		playerIsLocked = 0;
 	}
 	
@@ -81,11 +76,12 @@ app.get("/", function(req, res){
 			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = newPlayers[6][1]; // choose locked player
 			playerIsLocked = 1;
+			console.log("newPlayers[6][1]: " + newPlayers[6][1]);
+			console.log("playerOne: " + playerOne);
 	}
 		
-	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){ //7
-	//if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && newPlayers[7] != true){ // If winner/loser chosen -- to prevent showing same two people consequtively
-		console.log("Player not locked!");
+	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked === 0){
+		console.log("Players not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
@@ -149,14 +145,16 @@ app.get("/", function(req, res){
 	newPlayers[1][2] = playerTwoScore;
 	newPlayers[1][3] = playerTwoELO;
 	newPlayers[1][4] = aspectRatioP2;
+
+	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
 	
 	if(playerIsLocked === 1){
+		//console.log("Players locked!");
+		playerArray[0].lockPlayer = 1;
 		newPlayers[7] = true; // change back to 3 if problems
 	}else{
 		newPlayers[7] = false; // change back to 3 if problems
 	}
-	
-	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
 	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
@@ -249,20 +247,14 @@ app.post("/resetScores", function(req, res){
 			//playerArray[0].lockPlayer = 0;
 			
 			if(Number(req.body.lockPlayer) === 1){
-				//resetArray[0] = 1; // locked
 				resetArray[1] = playerOneOnReset; // last player
 				
 				newPlayers[6][1] = playerOneOnReset; // last player
 				newPlayers[6][2] = playerOneOnReset + "D";
 				newPlayers[7] = true; // Checkbox checked
-				//newPlayers[3] = true; // also locked
-				//playerArray[0].lockPlayer = 1; // Take out if problems.
 			}else{
-				//resetArray[0] = 0;
 				resetArray[1] = 0;
 				newPlayers[7] = false; // Checkbox NOT checked
-				//newPlayers[3] = false; // not locked
-				//playerArray[0].lockPlayer = 0;
 			}
 			
 			
