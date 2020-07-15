@@ -20,7 +20,7 @@
 		return value != null && typeof value == 'object';
 	};
 	
-	let photoPath  = "Dopples/Actress_Picture/";
+	const photoPath  = "Dopples/Actress_Picture/";
 	
 	let playerOne = newPlayers[0][0];
 	let playerOneName = newPlayers[0][1];
@@ -35,12 +35,12 @@
 	let playerTwoAR = newPlayers[1][4];
 	
 	// Keep original aspect ratio
-	let newImgWidth = 240;
-	let playerOneImgHeight = getNewHeightInAspectRatio(newImgWidth, playerOneAR);
-	let playerTwoImgHeight = getNewHeightInAspectRatio(newImgWidth, playerTwoAR);
+	const newImgWidth = 240;
+	const playerOneImgHeight = getNewHeightInAspectRatio(newImgWidth, playerOneAR);
+	const playerTwoImgHeight = getNewHeightInAspectRatio(newImgWidth, playerTwoAR);
 
-	let playerOneImage = photoPath + playerOne + ".jpg";
-	let playerTwoImage = photoPath + playerTwo + ".jpg";
+	const playerOneImage = photoPath + playerOne + ".jpg";
+	const playerTwoImage = photoPath + playerTwo + ".jpg";
 	
 	// Array passed if Player One selected
 	playerOneIsWinnerArray = [];
@@ -80,7 +80,8 @@ if(rando === 1){ // Randomize pictures
 <% };
 
 //if(playerArray[0] != undefined && newPlayers[7] === true){
-if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[7] === true){ // Working, but narrow to 2 conditions if possible.
+//if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[7] === true){ // Working, but narrow to 2 conditions if possible.
+if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
 %>
 					<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
 <% }else{ %>
@@ -92,7 +93,7 @@ if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[
 </form>
 
 <%
-	if (Array.isArray(playerArray) && playerArray.length && newPlayers[5] === false){ 
+	if (Array.isArray(playerArray) && playerArray[0] != undefined && playerArray != undefined && playerArray.length && newPlayers[5] === false){ 
 		//console.log("Array NOT empty!");
 		playerArray.forEach(function(currentArray){ %>
 				<div id="scoreBoard">
@@ -117,6 +118,7 @@ if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[
 					<!-- <p>Loser: <%= currentArray.loser %></p> -->
 					<!-- <p>Winner Name: <%= currentArray.winnerName %></p> -->
 					<!-- <p>Loser Name: <%= currentArray.loserName %></p> -->
+					<% console.log(typeof currentArray.winnerOldScore) %>
 					<p><%= currentArray.winnerName %> Old Score: <%= currentArray.winnerOldScore.toString().substr(0,8) %></p>
 					<p><%= currentArray.winnerName %> New Score: <%= currentArray.winnerNewScore.toString().substr(0,8) %></p>
 					<p><%= currentArray.loserName %> Old Score: <%= currentArray.loserOldScore.toString().substr(0,8) %></p>
