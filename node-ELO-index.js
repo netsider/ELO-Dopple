@@ -30,11 +30,11 @@ const dirLength = fs.readdirSync(namePath).length;
 const k = 32;
 let maxPlayers = 2;
 let playerArray = [];
+playerArray[0] = {};
 let newPlayers = [];
 let resetPressed = false; // if reset pressed
 newPlayers[6] = []; // last player array
 newPlayers[7] = false;  // Variable which the checkbox sets to true when checked.
-// playerArray[0].lockPlayer = 0; // WHY CAN'T I DO THIS!??!!??!?!?!?
 
 if(isEven(dirLength)){
 	maxPlayers = (dirLength / 2);
@@ -48,10 +48,10 @@ app.get("/", function(req, res){
 	//console.log("playerArray: ");
 	//logArray(playerArray[0]);
 	
-	console.log("newPlayers: ");
-	logArray(newPlayers);
+	//console.log("newPlayers: ");
+	//logArray(newPlayers);
 	
-	let playerOne = getRandomIntInclusive(1, maxPlayers);
+	let playerOne = 0;
 	
 	// Begin form handling logic
 	let playerIsLocked = 0;
@@ -60,8 +60,7 @@ app.get("/", function(req, res){
 	if(playerArray[0] != undefined){ // Answer button pressed
 		
 		if(lockPlayerCheckBox === true && resetPressed === false){ // Answer button pressed, checkbox CHECKED
-			console.log("Answer button pressed and checkbox checked (players locked!)");
-			playerOne = playerArray[0].winner.charAt(0);
+			//console.log("Answer button pressed and checkbox checked (players locked!)");
 			playerIsLocked = 1;
 		}else{ // Answer button pressed, checkbox NOT checked
 			playerIsLocked = 0;
@@ -72,20 +71,19 @@ app.get("/", function(req, res){
 	}
 	
 	if(lockPlayerCheckBox === false && resetPressed === true){ // Reset pressed, checkbox NOT checked.
-		console.log("Reset pressed, checkbox NOT checked.");
+		//console.log("Reset pressed, checkbox NOT checked.");
 		playerIsLocked = 0;
 	}
 	
 	if(lockPlayerCheckBox === true && resetPressed === true){ // Reset pressed, checkbox CHECKED
-			console.log("Reset pressed, checkbox CHECKED.");
-			playerOne = newPlayers[6][1]; // choose locked player
+			//console.log("Reset pressed, checkbox CHECKED.");
 			playerIsLocked = 1;
 	}
 	// End form logic
 	
 	
-	if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // So two players not chosen in a row
-		console.log("Players not locked!");
+	if(playerArray[0] != undefined && Array.isArray(playerArray[0]) && playerIsLocked === 0){ // If players not locked, make sure they're not the same.
+		//console.log("Players not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
 			while(playerOne == playerArray[0].winner.charAt(0)){
@@ -95,14 +93,14 @@ app.get("/", function(req, res){
 		}
 	}
 	
-	if(playerIsLocked === 1 && playerArray[0] != undefined){ // Will it ever be undefined if the player isn't locked, since they need to submit it to lock it?????
-		console.log("Players locked!");
-		playerArray[0].lockPlayer = 1;
-		playerOne = playerArray[0].winner.charAt(0);
+	if(playerIsLocked === 1){
+		//console.log("Players locked!");
+		//playerArray[0].lockPlayer = 1; // Why doesn't this work?
+		newPlayers[8] = true;
+		playerOne = newPlayers[6][1];
 	}else{
-		if(playerArray[0] === undefined){
-			console.log("playerArray[0] is undefined!");
-		}
+		//console.log("Players NOT locked!");
+		newPlayers[8] = false;
 		playerOne = getRandomIntInclusive(1, maxPlayers);
 	}
 		
@@ -162,19 +160,20 @@ app.get("/", function(req, res){
 	newPlayers[1][4] = aspectRatioP2;
 
 	newPlayers[5] = resetPressed; // indicate reset not pressed last time, so scoreboard doesn't show (is there another way to do this???)
+	
 	resetPressed = false; // so it doesn't stay true
 	
-	Debugging:
-	logArray(newPlayers);
+	//Debugging:
+	//logArray(newPlayers);
     	
 	res.render("node-dopple-main", {playerArray: playerArray, newPlayers: newPlayers})
 	
 })
 
 app.post("/node-dopple-main", function(req, res){
-	console.log("Serving /node-dopple-main (post) ..");
+	//console.log("Serving /node-dopple-main (post) ..");
 	
-	console.log("req.body.lockPlayer: " + req.body.lockPlayer);
+	//console.log("req.body.lockPlayer: " + req.body.lockPlayer);
 	let lockPlayer = Number(req.body.lockPlayer);
 	
 	let name = req.body.playerName;
@@ -191,6 +190,8 @@ app.post("/node-dopple-main", function(req, res){
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
 	let loser = unserialized[1].toString();
+	
+	newPlayers[6][1] = winner.charAt(0);
 	
 	let winnerScoreFile = "Dopples/Actress_Score/" + winner + ".txt";
 	let loserScoreFile = "Dopples/Actress_Score/" + loser + ".txt";
@@ -218,7 +219,7 @@ app.post("/node-dopple-main", function(req, res){
 	
 	winnerLoserObject = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO, lockPlayer: lockPlayer};
 	
-	console.log(winnerLoserObject);
+	//console.log(winnerLoserObject);
 	
 	playerArray[0] = winnerLoserObject; //playerArray.push(winnerLoserObject); 
 	//console.log("Redirecting to / ...");
@@ -226,7 +227,7 @@ app.post("/node-dopple-main", function(req, res){
 });
 
 app.post("/resetScores", function(req, res){
-		console.log("Resetting Scores...");
+		//console.log("Resetting Scores...");
 		
 		//console.log("----req.body----");
 		//logArray(req.body);
@@ -250,8 +251,8 @@ app.post("/resetScores", function(req, res){
 			for (let i = 1; i <= dirLength; i++) {
 				let scoreFileTemp1 = scorePath + i + ".txt";
 				let scoreFileTemp2 = scorePath + i + "D.txt";
-				console.log("Resetting " + scoreFileTemp1);
-				console.log("Resetting " + scoreFileTemp2);
+				//console.log("Resetting " + scoreFileTemp1);
+				//console.log("Resetting " + scoreFileTemp2);
 				fs.writeFileSync(scoreFileTemp1, startingScore);
 				fs.writeFileSync(scoreFileTemp2, startingScore);
 				if(dirLength == i){
