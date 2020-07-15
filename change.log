@@ -1,5 +1,6 @@
 <br/><strong>Known Bugs to Fix (NodeJS version):</strong><br/>
 • Change lines 151-170 so it doesn't use same variable checkbox is setting, and then change EJS file to reflect that (make form display checked checkbox if playerArray[0].lockPlayer = 1).<br>
+• Change resetArray into a boolean, since there's no other elements anymore.<br>
 • Make array numbers lower, so there's no blank values.<br>
 • Change name of app.post("/node-dopple-main", function() so that it doesn't have same name as EJS file.<br>
 • <strike>Cleanup checkbox and reset button logic</strike>.<br>
