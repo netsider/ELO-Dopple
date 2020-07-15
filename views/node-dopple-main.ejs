@@ -81,7 +81,8 @@ if(rando === 1){ // Randomize pictures
 
 //if(playerArray[0] != undefined && newPlayers[7] === true){
 //if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1 && newPlayers[7] === true){ // Working, but narrow to 2 conditions if possible.
-if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
+//if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
+if(playerArray[0] != undefined && newPlayers[8] === true){
 %>
 					<label for="lockPlayer">Lock Player</label><input type="checkbox" id="lockPlayer" name="lockPlayer" value="1" checked>
 <% }else{ %>
@@ -93,7 +94,7 @@ if(playerArray[0] != undefined && playerArray[0].lockPlayer === 1){
 </form>
 
 <%
-	if (Array.isArray(playerArray) && playerArray[0] != undefined && playerArray != undefined && playerArray.length && newPlayers[5] === false){ 
+	if (Array.isArray(playerArray) && playerArray[0].winnerName != undefined && playerArray != undefined && playerArray.length && newPlayers[5] === false){ 
 		//console.log("Array NOT empty!");
 		playerArray.forEach(function(currentArray){ %>
 				<div id="scoreBoard">
