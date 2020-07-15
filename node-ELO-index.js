@@ -59,6 +59,7 @@ if(isEven(dirLength)){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
+	console.log("newPlayers: ");
 	logArray(newPlayers);
 	
 	//console.log("playerArray[0].lockPlayer: " + playerArray[0].lockPlayer: );
@@ -81,19 +82,18 @@ app.get("/", function(req, res){
 	
 	if(resetArray[7] != true && resetArray[2] === true){ // Reset pressed, checkbox NOT checked.
 		console.log("Reset pressed, checkbox NOT checked");
-		//if(resetArray[3] == "false"){
 		newPlayers[3] = "false";
-		//}
-	}else{
-		if(newPlayers[7] === true){
+		playerIsLocked = 0;
+	}
+	
+	if(newPlayers[7] === true && resetArray[2] === true){ // Reset pressed, checkbox CHECKED
 			console.log("Reset pressed, checkbox CHECKED.");
 			playerOne = resetArray[1]; // choose locked player
 			playerIsLocked = 1;
 			newPlayers[3] = "true";
-		}
 	}
 	
-	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && playerArray[0].locked != 1){ // If winner/loser chosen -- to prevent showing same two people consequtively
+	if(playerArray[0] != undefined && playerArray[0] != NaN && playerIsLocked != 1 && newPlayers[3] == "false" && resetArray[7] != true){ // If winner/loser chosen -- to prevent showing same two people consequtively
 		console.log("Player not locked!");
 		if(playerOne == playerArray[0].winner.charAt(0)){ 
 			//console.log("New players are the same as old players!  Choosing different...");
@@ -162,10 +162,6 @@ app.get("/", function(req, res){
 	newPlayers[4] = playerIsLocked; // if player locked
 	newPlayers[5] = resetArray[2]; // indicate reset not pressed last time
 	
-//	newPlayers[6] = []; // last player
-
-	
-	
 	// Debugging:
 	//console.log("Player One Score: " + playerOneScore);
 	//console.log("Player Two Score: " + playerTwoScore);
@@ -186,8 +182,6 @@ app.post("/node-dopple-main", function(req, res){
 	let lockPlayer = Number(req.body.lockPlayer);
 	let name = req.body.playerName;
 	//let image = req.body.playerImage;
-	
-	resetArray[2] = false; // reset wasn't pressed
 	
 	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
