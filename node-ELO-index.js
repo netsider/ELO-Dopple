@@ -85,9 +85,9 @@ app.get("/", function(req, res){
 		playerArray[0].lockPlayer = 0;
 		playerOne = getRandomIntInclusive(1, maxPlayers);
 		
-		if(playerIsLocked === 0){ // Since players not locked, make sure new players chosen not same as last round.
+		if(playerIsLocked === 0){ // Since players not locked, make sure new players chosen are not same as last round.
 			// if(typeof playerArray[0].winner === "undefined"){
-				console.log("playerArray[0].winner: " + playerArray[0].winner);
+				//console.log("playerArray[0].winner: " + playerArray[0].winner);
 				//playerArray[0].winner = ""; // to fix undefined on line 94, but is there a better way???
 			// }
 			if(typeof playerArray[0].winner != "undefined"){
@@ -175,12 +175,12 @@ app.get("/", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-		
-	let lockPlayer = 0;
+	
 	resetPressed = false;
 	//let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	
+	let lockPlayer = 0;
 	if(Number(req.body.lockPlayer) === 1){
 		newPlayers[7] = true;
 		lockPlayer = 1;
