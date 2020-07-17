@@ -91,7 +91,6 @@ app.get("/", function(req, res){
 				//playerArray[0].winner = ""; // to fix undefined on line 94, but is there a better way???
 			// }
 			if(typeof playerArray[0].winner != "undefined"){
-				console.log("NOT UNDEFINED! playerArray[0].winner: " + playerArray[0].winner);
 				if(playerOne.toString() === playerArray[0].winner.charAt(0)){
 					console.log("New players are the same as old players!  Choosing different...");
 					while(playerOne.toString() === playerArray[0].winner.charAt(0)){
@@ -104,9 +103,7 @@ app.get("/", function(req, res){
 		
 	}
 	
-
-	
-	console.log("playerOne: " + playerOne);
+	//console.log("playerOne: " + playerOne);
 	let playerTwo = playerOne + "D";
 	
 	const playerOneNamePath = namePath + playerOne + ".txt";
