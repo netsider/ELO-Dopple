@@ -32,8 +32,8 @@ let maxPlayers = 2;
 let playerArray = [];
 playerArray[0] = {};
 let newPlayers = [];
-let resetPressed = false; // if reset pressed
-newPlayers[6] = []; // last player array
+let resetPressed = false; // If reset button pressed.
+newPlayers[6] = []; // Contains information about last player (until I can get it via playerArray[0].winner);
 newPlayers[7] = false;  // Variable which the checkbox sets to true when checked.
 
 if(isEven(dirLength)){
@@ -45,7 +45,7 @@ if(isEven(dirLength)){
 app.get("/", function(req, res){
 	console.log("Serving / ...");
 	
-	let playerOne = 0;
+	let playerOne = 1;
 	
 	// Begin form handling logic
 	let playerIsLocked = 0;
@@ -77,32 +77,36 @@ app.get("/", function(req, res){
 	
 	
 	if(playerIsLocked === 1){ // set player locked.
-		//console.log("Players locked!");
+		console.log("Players locked!");
 		playerArray[0].lockPlayer = 1;
-		//newPlayers[8] = true;
 		playerOne = newPlayers[6][1];
 	}else{
-		//console.log("Players NOT locked!");
-		//newPlayers[8] = false;
+		console.log("Players NOT locked!");
 		playerArray[0].lockPlayer = 0;
 		playerOne = getRandomIntInclusive(1, maxPlayers);
-	}
-	
-	if(playerIsLocked === 0){ // If not locked, make sure players not same as last round.
-		if(typeof playerArray[0].winner === "undefined"){
-			//console.log(typeof playerArray[0].winner);
-			playerArray[0].winner = "";
-			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
-		}
-		if(playerOne.toString() === playerArray[0].winner.charAt(0)){ 
-			console.log("New players are the same as old players!  Choosing different...");
-			while(playerOne.toString() === playerArray[0].winner.charAt(0)){
-				playerOne = getRandomIntInclusive(1, maxPlayers);
+		
+		if(playerIsLocked === 0){ // Since players not locked, make sure new players chosen not same as last round.
+			// if(typeof playerArray[0].winner === "undefined"){
+				console.log("playerArray[0].winner: " + playerArray[0].winner);
+				//playerArray[0].winner = ""; // to fix undefined on line 94, but is there a better way???
+			// }
+			if(typeof playerArray[0].winner != "undefined"){
+				console.log("NOT UNDEFINED! playerArray[0].winner: " + playerArray[0].winner);
+				if(playerOne.toString() === playerArray[0].winner.charAt(0)){
+					console.log("New players are the same as old players!  Choosing different...");
+					while(playerOne.toString() === playerArray[0].winner.charAt(0)){
+						playerOne = getRandomIntInclusive(1, maxPlayers);
+					}
+				//console.log("Successfully chose two different players!");
+				}
 			}
-		//console.log("Successfully chose two different players!");
 		}
+		
 	}
 	
+
+	
+	console.log("playerOne: " + playerOne);
 	let playerTwo = playerOne + "D";
 	
 	const playerOneNamePath = namePath + playerOne + ".txt";
@@ -174,22 +178,21 @@ app.get("/", function(req, res){
 
 app.post("/node-dopple-main", function(req, res){
 	console.log("Serving /node-dopple-main (post) ..");
-	
-	//console.log("req.body.lockPlayer: " + req.body.lockPlayer);
-	let lockPlayer = Number(req.body.lockPlayer);
-	
-	let name = req.body.playerName;
+		
+	let lockPlayer = 0;
+	resetPressed = false;
+	//let name = req.body.playerName;
 	//let image = req.body.playerImage;
 	
 	if(Number(req.body.lockPlayer) === 1){
 		newPlayers[7] = true;
+		lockPlayer = 1;
 	}else{
 		newPlayers[7] = false;
 	}
 	
-	resetPressed = false;
+	let unserialized = JSON.parse(req.body.playerName);
 	
-	let unserialized = JSON.parse(name);
 	let winner = unserialized[0].toString();
 	let loser = unserialized[1].toString();
 	
@@ -207,12 +210,12 @@ app.post("/node-dopple-main", function(req, res){
 	// ELO score distribution
 	let winnerNewScore = winnerOldScore + (k * (1 - winnerELO));
 	let loserNewScore = loserOldScore + (k * (0 - loserELO));
-	
 	let winnerNewELO = ELO(winnerNewScore, loserNewScore);
 	let loserNewELO = ELO(loserNewScore, winnerNewScore);
 	
 	let winnerNamePath = namePath + winner + ".txt";
 	let loserNamePath = namePath + loser + ".txt";
+	
 	let winnerName = fs.readFileSync(winnerNamePath).toString();
 	let loserName = fs.readFileSync(loserNamePath).toString();
 	
@@ -221,9 +224,9 @@ app.post("/node-dopple-main", function(req, res){
 	
 	winnerLoserObject = {winner: winner, loser: loser, winnerName: winnerName, loserName: loserName, winnerOldScore: winnerOldScore, loserOldScore: loserOldScore, winnerELO: winnerELO, loserELO: loserELO, winnerNewScore: winnerNewScore, loserNewScore: loserNewScore, winnerNewELO: winnerNewELO, loserNewELO: loserNewELO, lockPlayer: lockPlayer};
 	
-	//console.log(winnerLoserObject);
-	
 	playerArray[0] = winnerLoserObject; //playerArray.push(winnerLoserObject); 
+	
+	//console.log(winnerLoserObject);
 	//console.log("Redirecting to / ...");
 	res.redirect("/");
 });
@@ -265,7 +268,7 @@ app.post("/resetScores", function(req, res){
 		//console.log("Redirecting to / ...");
 		res.redirect("/");
 	}else{
-		resetPressed = false;
+		//resetPressed = false;
 	}
 })
 
