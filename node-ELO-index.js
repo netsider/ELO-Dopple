@@ -75,6 +75,8 @@ app.get("/", function(req, res){
 	}
 	// End form logic
 	
+	//11111111
+	//99999999
 	
 	if(playerIsLocked === 1){ // set player locked.
 		console.log("Players locked!");
