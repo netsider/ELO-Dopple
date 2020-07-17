@@ -88,10 +88,10 @@ app.get("/", function(req, res){
 		playerOne = getRandomIntInclusive(1, maxPlayers);
 	}
 	
-	if(playerIsLocked === 0){ // If not locked, make sure not same as last round.
+	if(playerIsLocked === 0){ // If not locked, make sure players not same as last round.
 		if(typeof playerArray[0].winner === "undefined"){
 			//console.log(typeof playerArray[0].winner);
-			playerArray[0].winner = "1";
+			playerArray[0].winner = "";
 			//console.log("playerArray[0].winner.charAt(0): " + playerArray[0].winner.charAt(0));
 		}
 		if(playerOne.toString() === playerArray[0].winner.charAt(0)){ 
