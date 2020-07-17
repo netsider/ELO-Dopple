@@ -90,15 +90,15 @@ app.get("/", function(req, res){
 				//console.log("playerArray[0].winner: " + playerArray[0].winner);
 				//playerArray[0].winner = ""; // to fix undefined on line 94, but is there a better way???
 			// }
-			if(typeof playerArray[0].winner != "undefined"){
-				if(playerOne.toString() === playerArray[0].winner.charAt(0)){
+			//if(typeof playerArray[0].winner != "undefined"){
+				if(typeof playerArray[0].winner != "undefined" && playerOne.toString() === playerArray[0].winner.charAt(0)){
 					console.log("New players are the same as old players!  Choosing different...");
 					while(playerOne.toString() === playerArray[0].winner.charAt(0)){
 						playerOne = getRandomIntInclusive(1, maxPlayers);
 					}
 				//console.log("Successfully chose two different players!");
 				}
-			}
+			//}
 		}
 		
 	}
