@@ -78,13 +78,13 @@ app.get("/", function(req, res){
 	
 	if(playerIsLocked === 1){ // set player locked.
 		//console.log("Players locked!");
-		playerArray[0].lockPlayer = 1; // Why doesn't this work?
+		playerArray[0].lockPlayer = 1;
 		//newPlayers[8] = true;
 		playerOne = newPlayers[6][1];
 	}else{
 		//console.log("Players NOT locked!");
 		//newPlayers[8] = false;
-		playerArray[0].lockPlayer = 0; // Why doesn't this work?
+		playerArray[0].lockPlayer = 0;
 		playerOne = getRandomIntInclusive(1, maxPlayers);
 	}
 	
