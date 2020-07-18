@@ -143,8 +143,8 @@ app.get("/", function(req, res){
 		playerTwoScore = Number(fs.readFileSync(playerTwoScorePath));
 	}
 	
-	let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toFixed(2); // Two decimal places
-	let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toFixed(2); // Two decimal places
+	let playerOneELO = (ELO(playerOneScore, playerTwoScore) * 100).toPrecision(4); // Two decimal places
+	let playerTwoELO = (ELO(playerTwoScore, playerOneScore) * 100).toPrecision(4); // Two decimal places
 		
 	newPlayers[0] = [];
 	newPlayers[1] = [];
