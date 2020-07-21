@@ -37,9 +37,9 @@
 • Mobile version, using front-end framework.<br>
 • Scalable version.<br>
 • Database-backed version.<br>
-• <strike>NodeJS version, to see how this would work differently.<br></strike>
 • Python version, to see how this would work differently.<br>
 • Explore additional versions (serverless?).<br>
+• <strike>NodeJS version, to see how this would work differently.<br></strike>
 • <strike>Possible version that uses FIDE's implementation of ELO</strike><strong> (DONE - 8/7/2019).</strong>.<br>
 • <strike>Simple PHP script to calculate how many games it takes to reach a certain score.</strike>  (DONE - 9/7/2019).<br>
 • <strike>Doppleganger version, and thinking about how to implement that in current version.</strike> <strong>(DONE)</strong><br>
