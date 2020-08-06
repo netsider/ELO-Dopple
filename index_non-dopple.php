@@ -16,7 +16,7 @@ error_reporting(E_ALL);
 require_once('functions.php');
 
 //Configurable Variables
-$DEBUG = 1;
+$DEBUG = 0;
 $Player_LOCKED = FALSE;
 $Players_Chosen = FALSE;
 $Root_DIR = 'Actresses';
@@ -66,17 +66,11 @@ if(isset($_POST) AND $_SERVER['REQUEST_METHOD'] === 'POST' AND filter_array($_PO
 			
 			for($x = 1; $x <= $number_of_scores_to_reset; $x++){
 				$current_filename = $Score_DIR . $x . '.txt';
-				// $current_D_filename = $Score_DIR . $x . 'D.txt';
-				
+
 				if(file_exists($current_filename)){
 					if($DEBUG){ echo 'Overwriting ' . $current_filename . ' ...<br/>'; };
 					write($current_filename, $BaseScore);
 				};
-				// if(file_exists($current_D_filename)){
-					// if($DEBUG){ echo 'Overwriting ' . $current_D_filename . ' ...<br/>'; };
-					// write($current_D_filename, $BaseScore);
-				// };
-				
 			};
 			echo 'Scores Reset.<br/>';
 		};
